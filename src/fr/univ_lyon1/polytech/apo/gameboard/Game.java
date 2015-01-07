@@ -14,7 +14,10 @@ public class Game {
 
     public static void main(String[] args) 
     {
+        boolean quit = false;
         int game, player_type_1, player_type_2;
+                while(quit==false)
+        {
         game= main_menu();//On choisit son jeu
         switch (game)
         {
@@ -94,12 +97,25 @@ public class Game {
 
 
     }
+        Scanner sc = new Scanner(System.in);
+        String str;
+
+            
         gameboard.display_gameboard();
         System.out.println();
         
 
         gameboard.play_loop(player_1, player_2);
         gameboard.display_history();
+        System.out.println("\n Quitter? y/n");
+        str = sc.nextLine();
+        if(str.charAt(0)=='y')
+        {
+            quit = true;
+            System.out.println("Au revoir");
+            System.exit(0);
+        }
+        }
     }
         private static int choose_player_menu (int player, int jeu)//player = {0 1} (joueur1<= 0 et joueur2<= 1)
                                                                //jeu = {0,1} (0 -> puiss4 et 1 -> TTT)
