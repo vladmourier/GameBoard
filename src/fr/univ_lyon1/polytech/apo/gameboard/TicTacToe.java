@@ -124,7 +124,19 @@ public class TicTacToe extends GameBoard {
 
     @Override
     public Player win() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        if(((get_board()[0][0] == get_board()[0][1]) && (get_board()[0][0] == get_board()[0][2])) ||        //première ligne
+                ((get_board()[1][0] == get_board()[1][1]) && (get_board()[1][0] == get_board()[1][2])) ||   //deuxième ligne
+                ((get_board()[2][0] == get_board()[2][1]) && (get_board()[2][0] == get_board()[2][2])) ||   //troisième ligne
+                ((get_board()[0][0] == get_board()[1][0]) && (get_board()[0][0] == get_board()[2][0])) ||   //première colonne
+                ((get_board()[0][1] == get_board()[1][1]) && (get_board()[0][1] == get_board()[2][1])) ||   //deuxième colonne
+                ((get_board()[0][2] == get_board()[2][1]) && (get_board()[0][2] == get_board()[0][2])) ||   //troisième colonne
+                ((get_board()[0][0] == get_board()[1][1]) && (get_board()[0][0] == get_board()[2][2])) ||   //diagonale \
+                ((get_board()[0][2] == get_board()[1][1]) && (get_board()[0][2] == get_board()[2][0])))     //diagonale /
+        {
+            return get_history(get_history().lastIndexOf(this) - 1).player;
+        }
+        else return null;
     }
 
     @Override
