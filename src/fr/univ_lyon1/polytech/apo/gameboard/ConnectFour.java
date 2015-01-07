@@ -203,7 +203,7 @@ public class ConnectFour extends GameBoard {
             { 
                 case 0:// 0 => le joueur 1 est humain
                     while(tour_ok==false){
-                        tour = player1.play();
+                        tour = player2.play();
                         tour_ok = check_tour(tour);
                             };
                     play(tour);// il joue donc comme un humain
