@@ -24,12 +24,13 @@ public class Human extends Player {
     {
         Turn tour;
         Scanner sc = new Scanner(System.in);
-System.out.println("Veuillez saisir une position de la forme X,Y :");
-String str = sc.nextLine();
-System.out.println("Vous avez saisi : " + str);
+        System.out.println("Veuillez saisir une position de la forme X,Y :");
+        String str = sc.nextLine();
+        System.out.println("Vous avez saisi : " + str);
         Position position;
         position = new Position(0,0);
         position.parse(str);
+        
         tour = new Turn(position,this);
         return tour;
     }

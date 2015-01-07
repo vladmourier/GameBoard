@@ -1,6 +1,7 @@
 package fr.univ_lyon1.polytech.apo.gameboard;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import java.util.List;
  *
  * @author YOU
  */
-public abstract class GameBoard {
+public abstract class GameBoard implements Serializable {
     public final int width;
     public final int length;
     private int[][] board;
@@ -60,6 +61,8 @@ public abstract class GameBoard {
             System.out.println(history1.toString());
         }
    }
+   
+ 
     public abstract void play(Turn turn);
     public abstract void play_loop(Player a, Player b);
     public abstract void cancel();   
@@ -86,5 +89,63 @@ public abstract class GameBoard {
     public int get_board(int i, int j)
     {
         return board[i][j];
+    }
+    
+
+    
+    public boolean next_position (int i, int j, int direction)//direction: 0 -> cherches en haut  // 2-> cherches en diagonale \ vers le haut
+    // 1 -> cherches en bas // 3 -> cherches en diagonale \ vers le bas // 4 -> cherches en diagonale / vers le haut, 5 pour le bas
+    {
+        if((i+1>=width&&direction==0)||(j-1>=length&&direction==1)||
+          (i-1<0&&j+1>=length&&direction==2)||(direction==3&&i+1>=width&&j-1<0)||
+          (direction==4&&i+1>=width&&j+1>=length)||(direction==5&&i-1<0&&j-1<0))
+        {
+            return false;
+        }
+            
+        switch (direction)
+        {
+            case 0:
+                if(board[i][j+1]==board[i][j])
+                {
+                    return true;
+                }
+            case 1:
+                if(board[i][j-1]==board[i][j])
+                {
+                    return true;
+                }
+            case 2:
+                 if(board[i+1][j]==board[i][j])
+                {
+                    return true;
+                }
+            case 3:
+                 if(board[i-1][j]==board[i][j])
+                {
+                    return true;
+                }
+            case 4 : 
+                if(board[i-1][j+1]==board[i][j])
+                {
+                    return true;
+                }
+            case 5 :
+                if(board[i+1][j-1]==board[i][j])
+                {
+                    return true;
+                }
+            case 6 :
+                if(board[i+1][j+1]==board[i][j])
+                {
+                    return true;
+                }
+            case 7 :
+                if(board[i-1][j-1]==board[i][j])
+                {
+                    return true;
+                }
+        }
+                        return false;
     }
 }

@@ -1,10 +1,12 @@
 package fr.univ_lyon1.polytech.apo.gameboard;
 
+import java.io.Serializable;
+
 /**
  *
  * @author YOU
  */
-public class Turn {
+public class Turn implements Serializable {
     
     public final Position position;
     public final Player player;

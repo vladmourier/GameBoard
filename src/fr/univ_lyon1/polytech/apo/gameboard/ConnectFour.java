@@ -42,8 +42,7 @@ public class ConnectFour extends GameBoard {
     @Override
     public void play(Turn turn)//implémenter : si un pion est déjà sur la case, impossible de jouer 
     {
-        int X = turn.position.x;
-        
+        int X = turn.position.x;        
         int altimetre;//altimetre représente la gravité :seule la position de X importe
         altimetre=super.width -1;//On initialise l'altimètre tout en haut du gmeboard
         while(altimetre != 0 && super.get_board(X, altimetre-1)==0)//On descend jusqu'à ce qu'on atteigne 0 ou qu'il y ait un pion en dessous
@@ -73,19 +72,100 @@ public class ConnectFour extends GameBoard {
 
     @Override
     public Player win() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        
+        int[][] combinaisons=new int[2][8];//2 pour les deux joueurs, 4pour les 2axes + 2*2 diagonales.
+        int curseur=0, player1_ind=0, player2_ind=0;
+        boolean player_ok=false;
+        
+        while(player_ok==false){
+                    
+             for(int j=length-1;j>=0;j--) 
+        {
+            for(int i = 0; i<width;i++)
+            {
+             int k=j,l=i;
+             int courant = get_board(i,j);
+             if(courant != 0)
+             {
+                 player1_ind=courant;
+             }
+             if(courant != player1_ind)
+             {
+                 player2_ind= courant;
+             }
+             
+             while(k>0)
+             {
+                 while(l<width)
+                 {
+                 if(courant!=0)
+                 {
+                     for(int direction=0;direction<8;direction++)
+                     {
+                         if(next_position(k,l,direction))
+                         combinaisons[0][direction]+=1;
+                     }
+                 }
+                 k--;
+                }
+                 l++;
+             }
+            }
+        }
+        }
+        
+             
+             if((combinaisons[0][2]+combinaisons[0][3]+1>=4) ||(combinaisons[0][0]+combinaisons[0][1]+1>=4 )||
+                     (combinaisons[0][4]+combinaisons[0][5]+1>=4 )|| (combinaisons[0][6]+combinaisons[0][7]+1>=4))
+             {
+                 return null;
+             }
+                Player vainqueur= new Human (0);
+        return vainqueur;
     }
+      public Player get_player (int i, int j)
+    {
+        int nb_coups_joues=super.get_history().size();
+        for(int cpt = 1; cpt<=nb_coups_joues;cpt++)
+        {
+        if(super.get_history().get(nb_coups_joues-cpt).position.equals(new Position(i,j)));
+        {
+            return super.get_history().get(nb_coups_joues-cpt).player;
+        }       
 
+    }
+        /*        int id = gameboard.get_board(i,j);
+        if (player_1!=null && player_1.number==id)
+        {
+            return player_1;
+        }
+        if (player_1!=null || player_1.number==id)
+        {
+            return player_1;
+        }
+        
+        if(random_player_1!=null && random_player_1.number == id){
+            return random_player_1;
+        }
+        if(random_player_2!=null && random_player_2.number == id){
+            return random_player_2;
+        } else {
+        return chuck;
+        }*/
+        return null;
+    } 
     @Override
     public String toString() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     @Override
     public void play_loop(Player player1, Player player2) {
-        boolean victory = false;
+        boolean victory = false, tour_ok;
         int player_type1 = 0, player_type2=0;
         while(victory != true) //Tant que personne n'a gagné
         {
+            tour_ok=false;
             if(player1.getClass()==Human.class) //On regarde de quel type est le joueur1
             {
                 player_type1=0;
@@ -93,11 +173,15 @@ public class ConnectFour extends GameBoard {
             {
                 player_type1 = 1;
             }
-            
+            Turn tour = null;
             switch (player_type1) 
             { 
                 case 0:// 0 => le joueur 1 est humain
-                    play(player1.play());// il joue donc comme un humain
+                    while(tour_ok==false){
+                        tour = player1.play();
+                        tour_ok = check_tour(tour);
+                            };
+                    play(tour);// il joue donc comme un humain
                     break;
                 case 1://1 => Le joueur 1 est Random
                     play(player1.random_play(false));// il fait n'importe quoi
@@ -106,7 +190,7 @@ public class ConnectFour extends GameBoard {
             
             display_gameboard(); // on affiche son coup
             System.out.println("\n"); // on espace l'affichage
-            
+            tour_ok = false;
             if(player2.getClass()==Human.class) //on applique les mêmes vérifications que pour le player1
             {
                 player_type2=0;
@@ -117,8 +201,12 @@ public class ConnectFour extends GameBoard {
             
             switch (player_type2) //idem
             { 
-                case 0:
-                    play(player2.play());
+                case 0:// 0 => le joueur 1 est humain
+                    while(tour_ok==false){
+                        tour = player1.play();
+                        tour_ok = check_tour(tour);
+                            };
+                    play(tour);// il joue donc comme un humain
                     break;
                 case 1:
                     play(player2.random_play(false));
@@ -151,4 +239,9 @@ public class ConnectFour extends GameBoard {
         
     }   }
     
+    public boolean check_tour (Turn tour)
+    {
+        return !(tour.position.x >= this.width 
+                || tour.position.x<0);
+    }
 }
