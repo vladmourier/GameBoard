@@ -187,7 +187,7 @@ public class ConnectFour extends GameBoard {
                     play(player1.random_play(false));// il fait n'importe quoi
                     break;
              }
-            
+                        System.out.println("\n"); // on espace l'affichage
             display_gameboard(); // on affiche son coup
             System.out.println("\n"); // on espace l'affichage
             tour_ok = false;

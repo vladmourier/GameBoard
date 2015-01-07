@@ -47,13 +47,13 @@ public class Game {
                             switch (player_type_2)
                             {
                                 case 0:
-                                    player_2 = new Human(5);
+                                    player_2 = new Human(3);
                                     break;
                                 case 1:
-                                    /*random_*/player_2 = new Random_player(5);
+                                    /*random_*/player_2 = new Random_player(3);
                                     break;
                                 case 9:
-                                    /*chuck_*/player_2 = new Chuck_Norris(5);
+                                    /*chuck_*/player_2 = new Chuck_Norris(3);
                                     break;
                             }
             break;
@@ -77,20 +77,20 @@ public class Game {
                                     /*random_*/player_1 = new Random_player(5);
                                     break;
                             }
-            player_type_2 = choose_player_menu(1,1);//On choisit le challenger du p4
+            player_type_2 = choose_player_menu(1,1);//On choisit le challenger du TTT
                             switch (player_type_2)
                             {
                                 case 0:
-                                    player_2 = new Human(5);
+                                    player_2 = new Human(3);
                                     break;
                                 case 1:
-                                ///*    stupid_*/player_2 = new Stupid(5);
+                                ///*    stupid_*/player_2 = new Stupid(3);
                                     break;
                                 case 2:
-                                   ///* smart_*/player_2 = new Smart(5);
+                                   ///* smart_*/player_2 = new Smart(3);
                                     break;
                                 case 3 :
-                                    /*random_*/player_2 = new Random_player(5);
+                                    /*random_*/player_2 = new Random_player(3);
                                     break;
                             }
             break;
@@ -100,7 +100,7 @@ public class Game {
         Scanner sc = new Scanner(System.in);
         String str;
 
-            
+        System.out.println();            
         gameboard.display_gameboard();
         System.out.println();
         

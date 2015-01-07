@@ -32,7 +32,7 @@ public Turn random_play(boolean b)//b indique le jeu : false => puissance4
         Position position;
         if(b==false)
         {
-        position = new Position(abs.nextInt(6),ord.nextInt(7));
+        position = new Position(abs.nextInt(7),ord.nextInt(6));
         } else{
             position = new Position(abs.nextInt(3), ord.nextInt(3));
         }
