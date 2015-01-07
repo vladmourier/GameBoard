@@ -37,6 +37,10 @@ public class Chuck_Norris extends Player {
                 nb_coups++;
                 break;
         }
+        if(tour!=null)
+        {
+            return tour;
+        }else
         return new Turn (new Position(1,2),this);
         }
 
