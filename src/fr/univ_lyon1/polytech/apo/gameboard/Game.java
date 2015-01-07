@@ -68,7 +68,7 @@ public class Game {
                                     player_1 = new Human(5);
                                     break;
                                 case 1:
-                          //          /*stupid_*/player_1 = new Stupid(5);
+                                    /*stupid_*/player_1 = new Stupid(5);
                                     break;
                                 case 2:
                            //         /*smart_*/player_1 = new Smart(5);
@@ -84,7 +84,7 @@ public class Game {
                                     player_2 = new Human(3);
                                     break;
                                 case 1:
-                                ///*    stupid_*/player_2 = new Stupid(3);
+                                   /*    stupid_*/player_2 = new Stupid(3);
                                     break;
                                 case 2:
                                    ///* smart_*/player_2 = new Smart(3);

@@ -48,5 +48,10 @@ public class Chuck_Norris extends Player {
     public Turn random_play(boolean b) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public Turn stupid_play(Turn _history) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

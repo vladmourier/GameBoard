@@ -40,4 +40,9 @@ public Turn random_play(boolean b)//b indique le jeu : false => puissance4
         return tour;
 }
 
+    @Override
+    public Turn stupid_play(Turn _history) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
