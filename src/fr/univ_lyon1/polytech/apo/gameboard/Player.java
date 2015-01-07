@@ -6,10 +6,17 @@ package fr.univ_lyon1.polytech.apo.gameboard;
  */
 public abstract class Player {
     public final int number;
+    public int nb_coups;
     
 
     public Player(int number) {
         this.number = number;
+    }
+    
+    public Player(int number, int nbcoups)
+    {
+        this.number=number;
+        this.nb_coups=nbcoups;
     }
     
     public abstract Turn play();

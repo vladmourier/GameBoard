@@ -172,24 +172,46 @@ public class ConnectFour extends GameBoard {
             } else if (player1.getClass()==Random_player.class)
             {
                 player_type1 = 1;
+            }else if (player1.getClass()==Chuck_Norris.class)
+            {
+                player_type1=2;
             }
+            
             Turn tour = null;
             switch (player_type1) 
             { 
                 case 0:// 0 => le joueur 1 est humain
-                    while(tour_ok==false){
+                    while(tour_ok==false)
+                    {
                         tour = player1.play();
                         tour_ok = check_tour(tour);
-                            };
+                     }
                     play(tour);// il joue donc comme un humain
                     break;
                 case 1://1 => Le joueur 1 est Random
                     play(player1.random_play(false));// il fait n'importe quoi
                     break;
+                case 2://2 => Le joueur 1 est Chuck Norris
+                    play(player1.play());
+                    if(player1.nb_coups==3)
+                    {
+                        victory=true;
+                    }
+                    break;
              }
-                        System.out.println("\n"); // on espace l'affichage
+            System.out.println("\n"); // on espace l'affichage
             display_gameboard(); // on affiche son coup
             System.out.println("\n"); // on espace l'affichage
+            
+            
+            
+                        /* test de victoire*/
+            if(get_board(0,0)!=0)
+            {
+                victory = true;
+            }
+            if(victory==false)
+            {
             tour_ok = false;
             if(player2.getClass()==Human.class) //on applique les mêmes vérifications que pour le player1
             {
@@ -197,6 +219,9 @@ public class ConnectFour extends GameBoard {
             } else if (player2.getClass()==Random_player.class)
             {
                 player_type2 = 1;
+            } else if (player2.getClass()==Chuck_Norris.class)
+            {
+                player_type2=2;
             }
             
             switch (player_type2) //idem
@@ -211,6 +236,13 @@ public class ConnectFour extends GameBoard {
                 case 1:
                     play(player2.random_play(false));
                     break;
+                    case 2://2 => Le joueur 2 est Chuck Norris
+                    play(player2.play());
+                    if(player2.nb_coups==3)
+                    {
+                        victory=true;
+                    }
+                    break;
              }
             
             display_gameboard();
@@ -220,7 +252,8 @@ public class ConnectFour extends GameBoard {
                 victory = true;
             }
         }
-        System.out.println("Le joueur "+get_board(0,0)+" a gagné");
+        }
+        System.out.println("Le joueur "+get_board(super.get_history().get(super.get_history().size()-1).position.x,super.get_history().get(super.get_history().size()-1).position.x)+" a gagné");
     }
             
     @Override
