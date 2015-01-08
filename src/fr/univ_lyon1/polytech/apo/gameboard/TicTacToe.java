@@ -137,7 +137,7 @@ public class TicTacToe extends GameBoard {
                 ((get_board()[2][0] == get_board()[2][1]) && (get_board()[2][0] == get_board()[2][2]) && (get_board()[2][0] != 0)) ||   //troisième colonne
                 ((get_board()[0][0] == get_board()[1][0]) && (get_board()[0][0] == get_board()[2][0]) && (get_board()[0][0] != 0)) ||   //première ligne
                 ((get_board()[0][1] == get_board()[1][1]) && (get_board()[0][1] == get_board()[2][1]) && (get_board()[0][1] != 0)) ||   //deuxième ligne
-                ((get_board()[0][2] == get_board()[2][1]) && (get_board()[0][2] == get_board()[0][2]) && (get_board()[0][2] != 0)) ||   //troisième ligne
+                ((get_board()[0][2] == get_board()[1][2]) && (get_board()[0][2] == get_board()[2][2]) && (get_board()[0][2] != 0)) ||   //troisième ligne
                 ((get_board()[0][0] == get_board()[1][1]) && (get_board()[0][0] == get_board()[2][2]) && (get_board()[0][0] != 0)) ||   //diagonale /
                 ((get_board()[0][2] == get_board()[1][1]) && (get_board()[0][2] == get_board()[2][0]) && (get_board()[0][2] != 0)))     //diagonale \
         {
