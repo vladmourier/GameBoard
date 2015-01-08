@@ -7,6 +7,7 @@
 package fr.univ_lyon1.polytech.apo.gameboard;
 
 import java.util.List;
+import java.util.Scanner;
 
 /**
  *
@@ -59,10 +60,25 @@ public class ConnectFour extends GameBoard {
             switch (player_type1) 
             { 
                 case 0:// 0 => le joueur 1 est humain
+                    System.out.println("Voulez vous annuler le tour précédent? y/n");
+                    Scanner sc = new Scanner(System.in);
+                    String str = sc.nextLine();
+                    if(str.charAt(0)=='y')
+                    {
+                        cancel();
+                        cancel();
+                    }
+                    
                     while(tour_ok==false)
                     {
                         tour = player1.play();
                         tour_ok = check_tour(tour);
+                       System.out.println("Valider le coup? y/n");
+                       str=sc.nextLine();
+                       if(str.charAt(0)=='y')
+                       {
+                           cancel();
+                       }
                      }
                     play(tour);// il joue donc comme un humain
                     break;
@@ -74,11 +90,13 @@ public class ConnectFour extends GameBoard {
                     if(player1.nb_coups==3)
                     {
                         victory=true;
+                        System.out.print("Bienheureux ceux qui espèrent gagner face à Chuck...");
+
                     }
                     break;
              }
             System.out.println("\n"); // on espace l'affichage
-            display_gameboard(); // on affiche son coup
+            display_gameboard(this.toString()); // on affiche son coup
             System.out.println("\n"); // on espace l'affichage
             
             
@@ -119,11 +137,12 @@ public class ConnectFour extends GameBoard {
                     if(player2.nb_coups==3)
                     {
                         victory=true;
+                        System.out.print("Bienheureux ceux qui espèrent gagner face à Chuck...");
                     }
                     break;
              }
             
-            display_gameboard();
+            display_gameboard(this.toString());
             /* test de victoire*/
             if(get_board(0,0)!=0)
             {
@@ -133,22 +152,9 @@ public class ConnectFour extends GameBoard {
         }
         System.out.println("Le joueur "+get_board(super.get_history().get(super.get_history().size()-1).position.x,super.get_history().get(super.get_history().size()-1).position.x)+" a gagné");
     }
+
             
-    @Override
-    public void display_gameboard() {
-       
-             for(int j=length-1;j>=0;j--) 
-        {
-      for(int i = 0; i<width;i++)
-            {
-                System.out.print(super.get_board(i, j) + "|");
-                if(i==length)
-                {
-                    System.out.print("\n");
-                }
-            }
-        
-    }   }
+
     
     public boolean check_tour (Turn tour)
     {
@@ -166,12 +172,17 @@ public class ConnectFour extends GameBoard {
         return !(tour.position.x >= this.width 
                 || tour.position.x<0);
     }
-        public void cancel() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    @Override
+        public void cancel() {//On met la case visée par le dernier coup à 0
+        set_board(super.get_history().get(super.get_history().size()-1).position.x, super.get_history().get(super.get_history().size()-1).position.y,0);}
+    
+        @Override
     public Turn lastTurn() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+return super.get_history().get(super.get_history().size()-1);    }catch(NullPointerException e)
+{
+    System.out.println("Vous ne pouvez pas accéder au tour précédent, il n'y en a sans doute pas");
+    return null;
+}
     }
     @Override
     public Player win()
@@ -217,9 +228,41 @@ public class ConnectFour extends GameBoard {
        }
        return null;                                
     }
-
+    @Override
+    public void display_gameboard(String s) {
+       
+        super.display_gameboard(s);
+       }
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        StringBuilder sb=new StringBuilder();
+      for(int j=length-1;j>=0;j--) 
+        {
+      for(int i = 0; i<width;i++)
+            {
+                int perso=0;
+                char players='_';
+                switch(super.get_board(i, j))
+                {
+                    case 1:
+                        players = '●';
+                        break;
+                    case 2:
+                        players = '○';
+                        break;
+                    case 9:
+                        players = '◌';
+                        break;
+                }
+                sb.append(players).append("|");
+                
+                if(i==length)
+                {
+                    sb.append("\n");
+                }
+            }
+        
     }
+                     return sb.toString();
+}
 }

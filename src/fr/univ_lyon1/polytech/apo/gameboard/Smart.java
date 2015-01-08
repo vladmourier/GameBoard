@@ -15,12 +15,10 @@ import java.util.Random;
  */
 public class Smart extends Stupid {
     
-    private List<Position> mes_coups;
 
     public Smart(int i,int j)
     {
         super(i,j);
-        mes_coups = new ArrayList<>();
     }
     
     
@@ -38,7 +36,7 @@ public class Smart extends Stupid {
     {
                 Random voisin = new Random();
         Position position=null, last_pos;
-        if(tour==null)
+        if(tour==null)//Si c'est le premier coup, on joue au milieu
         {
          position = new Position(1,1);
          return new Turn(position, this);            
@@ -49,7 +47,9 @@ public class Smart extends Stupid {
         
         switch(nb_coups)
         {
-            case 2:
+            case 2://Si c'est la seconde fois qu'on joue et que l'adversaire
+                    // s'est placé sur la croix non diagonale alors on joue
+                    // dans un des coins adjacents à son pion
                 if(last_pos.equals(new Position(1,2)))
                 {
                     if(voisin.nextInt(2)==0)
@@ -84,13 +84,13 @@ public class Smart extends Stupid {
                     }
                 }
                 break;
-            case 4:
-                if(!liste.isEmpty()){
+            case 4://Si c'est la 3e fois qu'on joue
+                if(!liste.isEmpty()){//Si on peut gagner, on gagne
                 position = liste.get(voisin.nextInt(liste.size()));}
                 else{
                     if(last_pos.x==2 && last_pos.y==2)
-                        if(voisin.nextInt(2)==0)
-                        {
+                        if(voisin.nextInt(2)==0)//Sinon on joue dans certains
+                        {                       // endroits favorables selon le coup de l'autre
                             position = new Position(last_pos.x-1,last_pos.y);
                         }else position = new Position(last_pos.x,last_pos.y-1);
                     if(last_pos.x==2 && last_pos.y==0)
@@ -110,29 +110,15 @@ public class Smart extends Stupid {
                         }else position = new Position(last_pos.x,last_pos.y-1);
                 }
                 break; 
-            case 6:
-                if(!liste.isEmpty()){
-                position = liste.get(voisin.nextInt(liste.size()));}
-                else{
-                   tour =  stupid_play(tour, liste);
-                }
-            case 8:
-                if(!liste.isEmpty()){
-                position = liste.get(voisin.nextInt(liste.size()));}
-                else{
-                    tour = stupid_play(tour, liste);
-                }
             default:
-                                if(!liste.isEmpty()){
+                if(!liste.isEmpty()){
                 position = liste.get(voisin.nextInt(liste.size()));}
                 else{
                     tour = stupid_play(tour, liste);
                 }
-        }
+           }
         if(position!=null)
-        {tour = new Turn(position, this);
-            mes_coups.add(position);}
-        nb_coups+=2;
+        {tour = new Turn(position, this);}
         return tour;
     }
     

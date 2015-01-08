@@ -34,26 +34,26 @@ public class Game {
                             switch (player_type_1)
                             {
                                 case 0:
-                                    player_1 = new Human(5);
+                                    player_1 = new Human(1);
                                     break;
                                 case 1:
-                                    /*random_*/player_1 = new Random_player(5);
+                                    /*random_*/player_1 = new Random_player(1);
                                     break;
                                 case 9:
-                                    /*chuck_*/player_1 = new Chuck_Norris(5);
+                                    /*chuck_*/player_1 = new Chuck_Norris(1);
                                     break;
                             }
                             player_type_2 = choose_player_menu(1,0);//On choisit le challenger du p4
                             switch (player_type_2)
                             {
                                 case 0:
-                                    player_2 = new Human(3);
+                                    player_2 = new Human(2);
                                     break;
                                 case 1:
-                                    /*random_*/player_2 = new Random_player(3);
+                                    /*random_*/player_2 = new Random_player(2);
                                     break;
                                 case 9:
-                                    /*chuck_*/player_2 = new Chuck_Norris(3);
+                                    /*chuck_*/player_2 = new Chuck_Norris(9);
                                     break;
                             }
             break;
@@ -65,32 +65,32 @@ public class Game {
                             switch (player_type_1)
                             {
                                 case 0:
-                                    player_1 = new Human(5);
+                                    player_1 = new Human(1);
                                     break;
                                 case 1:
-                                    /*stupid_*/player_1 = new Stupid(5,0);
+                                    /*stupid_*/player_1 = new Stupid(1,0);
                                     break;
                                 case 2:
-                                    /*smart_*/player_1 = new Smart(5,0);
+                                    /*smart_*/player_1 = new Smart(1,0);
                                     break;
                                 case 3 :
-                                    /*random_*/player_1 = new Random_player(5);
+                                    /*random_*/player_1 = new Random_player(1);
                                     break;
                             }
             player_type_2 = choose_player_menu(1,1);//On choisit le challenger du TTT
                             switch (player_type_2)
                             {
                                 case 0:
-                                    player_2 = new Human(3);
+                                    player_2 = new Human(2);
                                     break;
                                 case 1:
-                                   /*    stupid_*/player_2 = new Stupid(3,1);
+                                   /*    stupid_*/player_2 = new Stupid(2,1);
                                     break;
                                 case 2:
-                                   /* smart_*/player_2 = new Smart(3,1);
+                                   /* smart_*/player_2 = new Smart(2,1);
                                     break;
                                 case 3 :
-                                    /*random_*/player_2 = new Random_player(3);
+                                    /*random_*/player_2 = new Random_player(2);
                                     break;
                             }
             break;
@@ -101,7 +101,7 @@ public class Game {
         String str;
 
         System.out.println();            
-        gameboard.display_gameboard();
+        gameboard.display_gameboard(gameboard.toString());
         System.out.println();
         
 

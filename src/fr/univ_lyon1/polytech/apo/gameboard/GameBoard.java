@@ -82,7 +82,10 @@ public abstract class GameBoard implements Serializable {
         return "TODO";
     }*/
     
-    public abstract void display_gameboard();
+    public void display_gameboard(String s)
+    {
+        System.out.println(s);
+    }
     /*
    */ 
     
