@@ -5,6 +5,9 @@
  */
 package fr.univ_lyon1.polytech.apo.gameboard;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  *
@@ -59,9 +62,12 @@ public class TicTacToe extends GameBoard {
                 case 1://1 => Le joueur 1 est Random
                     play(player1.random_play(true));// il fait n'importe quoi
                     break;
-                case 2:
-                    play(player1.stupid_play(super.get_history(super.get_history().size()-1)));
-            break; }
+                case 2://2 -> Le joueur est stupide
+                    play(player1.stupid_play(super.get_history(super.get_history().size()-1)));//Rien de très brillant
+                    break;
+                case 3:
+                    
+                    }
             
             display_gameboard(); // on affiche son coup
             System.out.println("\n"); // on espace l'affichage
@@ -128,7 +134,43 @@ public class TicTacToe extends GameBoard {
     public Turn lastTurn() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    public List<Position> new_win()
+    {
+        int i=0;
+        List<Position> pos_tab = new ArrayList<>();
+        // Pour chaque coin du gameboard on regarde d'où peuvent provenir les
+        // coups gagnants, et si il y en a on les ajoute
+        if((get_board()[0][0]==get_board()[1][0] && get_board()[0][0]!=0)||
+                (get_board()[0][2]==get_board()[1][1] && get_board()[0][2]!=0)||
+                (get_board()[2][2]==get_board()[2][1] && get_board()[2][2]!=0))
+            pos_tab.add(new Position(2,0));
+        
+        if((get_board()[0][0]==get_board()[0][1] && get_board()[0][0]!=0)||
+                (get_board()[2][0]==get_board()[1][1] && get_board()[2][0]!=0)||
+                (get_board()[2][2]==get_board()[1][2] && get_board()[2][2]!=0))
+            pos_tab.add(new Position(0,2));
+            
+        if((get_board()[0][0]==get_board()[1][1] && get_board()[0][0]!=0)||
+                (get_board()[2][0]==get_board()[2][1] && get_board()[2][0]!=0)||
+                (get_board()[0][2]==get_board()[1][2] && get_board()[0][2]!=0))
+            pos_tab.add(new Position(2,2));
+        
+        if((get_board()[2][0]==get_board()[1][0] && get_board()[2][0]!=0)||
+        (get_board()[0][2]==get_board()[0][1] && get_board()[0][2]!=0)||
+        (get_board()[2][2]==get_board()[1][1] && get_board()[2][2]!=0))
+            pos_tab.add(new Position(0,0));
+        
+        if(get_board()[0][1]==get_board()[1][1] && get_board()[0][1]!=0)
+            pos_tab.add(new Position(2,1));
+        if(get_board()[2][1]==get_board()[1][1] && get_board()[2][1]!=0)
+            pos_tab.add(new Position(0,1));
+        if(get_board()[1][0]==get_board()[1][1] && get_board()[1][0]!=0)
+            pos_tab.add(new Position(1,2));
+        if(get_board()[1][2]==get_board()[1][1] && get_board()[1][1]!=0)
+            pos_tab.add(new Position(1,0));
+        
+    return pos_tab;
+    }
     @Override
     public Player win() {
         

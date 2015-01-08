@@ -13,23 +13,7 @@ import java.util.List;
  * @author p1206512
  */
 public class ConnectFour extends GameBoard {
-
-    private enum Cell {
-        BASDROITE("5,0"),
-        BASGAUCHE("5,0"),
-        BASMILIEU("5,0"),
-        MILIEUDROITE("5,0"),
-        MILIEUGAUCHE("5,0"),
-        MILIEUMILIEU("5,0"),
-        HAUTDROITE("5,0"),
-        HAUTGAUCHE("5,0"),
-        HAUTMILIEU("5,0");
-        
-        public String content;
-        public static void spoon() { System.out.println("spoon"); }
-        private Cell(String content) { this.content = content ; }
-    }
-    
+   
     public ConnectFour(){
         super(7, 6);
     }
