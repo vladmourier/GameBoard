@@ -26,6 +26,7 @@ public class Stupid extends Player {
     public Turn random_play(boolean b) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    @Override
     public Turn stupid_play (Turn tour)
     {
         last_turn=tour;
