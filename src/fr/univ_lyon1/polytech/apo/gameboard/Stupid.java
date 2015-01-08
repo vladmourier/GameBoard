@@ -16,7 +16,12 @@ public class Stupid extends Player {
         super(i);
         last_turn=null;
     }
-
+    public Turn get_last_turn(){
+        return last_turn;
+    }
+    public void set_last_turn(Turn tour){
+        this.last_turn=tour;
+    }
     @Override
     public Turn play() {
         return stupid_play(null);
