@@ -91,7 +91,19 @@ public abstract class GameBoard implements Serializable {
         return board[i][j];
     }
     
+      public Player get_player (int i, int j)
+    {
+        int nb_coups_joues=get_history().size();
+        for(int cpt = 1; cpt<=nb_coups_joues;cpt++)
+        {
+        if(get_history().get(nb_coups_joues-cpt).position.equals(new Position(i,j)));
+        {
+            return get_history().get(nb_coups_joues-cpt).player;
+        }       
 
+    }
+        return null;
+    }
     
     public boolean next_position (int i, int j, int direction)//direction: 0 -> cherches en haut  // 2-> cherches en diagonale \ vers le haut
     // 1 -> cherches en bas // 3 -> cherches en diagonale \ vers le bas // 4 -> cherches en diagonale / vers le haut, 5 pour le bas

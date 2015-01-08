@@ -49,115 +49,9 @@ public class ConnectFour extends GameBoard {
         {
             altimetre--;
             }
+        super.set_board(X,altimetre, turn.player.number);
+        super.to_history(turn);       
         
-        try{
-            super.set_board(X,altimetre, turn.player.number);
-            super.to_history(turn);
-        }catch(ArrayIndexOutOfBoundsException e)
-        {
-            System.out.println("Impossible de placer"+turn.player.number+"en"+"["+ X +"][+"+altimetre+"]");
-        }
-        
-        
-    }
-    @Override
-    public void cancel() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Turn lastTurn() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Player win() {
-        
-        
-        int[][] combinaisons=new int[2][8];//2 pour les deux joueurs, 4pour les 2axes + 2*2 diagonales.
-        int curseur=0, player1_ind=0, player2_ind=0;
-        boolean player_ok=false;
-        
-        while(player_ok==false){
-                    
-             for(int j=length-1;j>=0;j--) 
-        {
-            for(int i = 0; i<width;i++)
-            {
-             int k=j,l=i;
-             int courant = get_board(i,j);
-             if(courant != 0)
-             {
-                 player1_ind=courant;
-             }
-             if(courant != player1_ind)
-             {
-                 player2_ind= courant;
-             }
-             
-             while(k>0)
-             {
-                 while(l<width)
-                 {
-                 if(courant!=0)
-                 {
-                     for(int direction=0;direction<8;direction++)
-                     {
-                         if(next_position(k,l,direction))
-                         combinaisons[0][direction]+=1;
-                     }
-                 }
-                 k--;
-                }
-                 l++;
-             }
-            }
-        }
-        }
-        
-             
-             if((combinaisons[0][2]+combinaisons[0][3]+1>=4) ||(combinaisons[0][0]+combinaisons[0][1]+1>=4 )||
-                     (combinaisons[0][4]+combinaisons[0][5]+1>=4 )|| (combinaisons[0][6]+combinaisons[0][7]+1>=4))
-             {
-                 return null;
-             }
-                Player vainqueur= new Human (0);
-        return vainqueur;
-    }
-      public Player get_player (int i, int j)
-    {
-        int nb_coups_joues=super.get_history().size();
-        for(int cpt = 1; cpt<=nb_coups_joues;cpt++)
-        {
-        if(super.get_history().get(nb_coups_joues-cpt).position.equals(new Position(i,j)));
-        {
-            return super.get_history().get(nb_coups_joues-cpt).player;
-        }       
-
-    }
-        /*        int id = gameboard.get_board(i,j);
-        if (player_1!=null && player_1.number==id)
-        {
-            return player_1;
-        }
-        if (player_1!=null || player_1.number==id)
-        {
-            return player_1;
-        }
-        
-        if(random_player_1!=null && random_player_1.number == id){
-            return random_player_1;
-        }
-        if(random_player_2!=null && random_player_2.number == id){
-            return random_player_2;
-        } else {
-        return chuck;
-        }*/
-        return null;
-    } 
-    @Override
-    public String toString() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     @Override
     public void play_loop(Player player1, Player player2) {
@@ -226,7 +120,7 @@ public class ConnectFour extends GameBoard {
             
             switch (player_type2) //idem
             { 
-                case 0:// 0 => le joueur 1 est humain
+                case 0:// 0 => le joueur 2 est humain
                     while(tour_ok==false){
                         tour = player2.play();
                         tour_ok = check_tour(tour);
@@ -274,7 +168,84 @@ public class ConnectFour extends GameBoard {
     
     public boolean check_tour (Turn tour)
     {
+        int X= tour.position.x;
+        int Y=tour.position.y;
+        try{
+        if((X >= this.width || X<0) || super.get_board(X,super.length-1)!=0)
+            throw new ArrayIndexOutOfBoundsException();
+            }catch(ArrayIndexOutOfBoundsException e)
+        {
+        System.out.println("Impossible de placer "+tour.player.number+" en "+"["+ X +"]["+Y+"]");
+        System.out.println("rejouez");
+        return false;
+        }
         return !(tour.position.x >= this.width 
                 || tour.position.x<0);
+    }
+        public void cancel() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    @Override
+    public Turn lastTurn() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    @Override
+    public Player win() {
+        
+        
+        int[][] combinaisons=new int[2][8];//2 pour les deux joueurs, 4pour les 2axes + 2*2 diagonales.
+        int curseur=0, player1_ind=0, player2_ind=0;
+        boolean player_ok=false;
+        
+        while(player_ok==false){
+                    
+             for(int j=length-1;j>=0;j--) 
+        {
+            for(int i = 0; i<width;i++)
+            {
+             int k=j,l=i;
+             int courant = get_board(i,j);
+             if(courant != 0)
+             {
+                 player1_ind=courant;
+             }
+             if(courant != player1_ind)
+             {
+                 player2_ind= courant;
+             }
+             
+             while(k>0)
+             {
+                 while(l<width)
+                 {
+                 if(courant!=0)
+                 {
+                     for(int direction=0;direction<8;direction++)
+                     {
+                         if(next_position(k,l,direction))
+                         combinaisons[0][direction]+=1;
+                     }
+                 }
+                 k--;
+                }
+                 l++;
+             }
+            }
+        }
+        }
+        
+             
+             if((combinaisons[0][2]+combinaisons[0][3]+1>=4) ||(combinaisons[0][0]+combinaisons[0][1]+1>=4 )||
+                     (combinaisons[0][4]+combinaisons[0][5]+1>=4 )|| (combinaisons[0][6]+combinaisons[0][7]+1>=4))
+             {
+                 return null;
+             }
+                Player vainqueur= new Human (0);
+        return vainqueur;
+    }
+
+    @Override
+    public String toString() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -24,28 +24,8 @@ public class TicTacToe extends GameBoard {
     public void play(Turn turn) {
         int X= turn.position.x;
         int Y=turn.position.y;
-        boolean a_joue=false;
-        while(a_joue==false)
-        {
-            try{
-               if(super.get_board(X,Y)!=0)
-            {
-                throw new PositionNotEmptyException();
-            }
-                super.set_board(X,Y, turn.player.number);
-                super.to_history(turn);
-                a_joue=true;
-            }
-            catch(ArrayIndexOutOfBoundsException e)
-            {
-                System.out.println("Impossible de placer"+turn.player.number+"en"+"["+ X +"][+"+Y+"]");
-                System.out.println("rejouez");
-            } 
-            catch (PositionNotEmptyException ex) {
-                System.out.println("Cette case comporte déjà une piece");
-                System.out.println("rejouez");
-            }
-        }
+        super.set_board(X,Y, turn.player.number);
+        super.to_history(turn);
     }
     @Override
     public void play_loop(Player player1, Player player2) 
@@ -173,6 +153,26 @@ public class TicTacToe extends GameBoard {
         }   
     }
     public boolean check_tour (Turn tour){
-        return !(tour.position.x>=this.width || tour.position.y>=this.length || tour.position.x<0 || tour.position.y<0 );
+        int X= tour.position.x;
+        int Y=tour.position.y;
+        int case_visee = super.get_board(X, Y);
+        try{
+            if(X>=this.width || Y>=this.length
+                    || X<0 || Y<0 )
+                throw new ArrayIndexOutOfBoundsException();
+            
+            if(case_visee!=0)
+                throw new PositionNotEmptyException();
+        }catch(ArrayIndexOutOfBoundsException e){
+            System.out.println("Impossible de placer "+tour.player.number+" en "+"["+ X +"]["+Y+"]");
+            System.out.println("rejouez");
+            return false;
+        }catch(PositionNotEmptyException p){
+            System.out.println("Impossible de placer "+tour.player.number+" en "+"["+ X +"]["+Y+"] car le joueur "+case_visee+" s'y trouve deja");
+            System.out.println("rejouez");
+            return false;
+        }
+        return !(tour.position.x>=this.width || tour.position.y>=this.length ||
+                tour.position.x<0 || tour.position.y<0 );
     }
 }
