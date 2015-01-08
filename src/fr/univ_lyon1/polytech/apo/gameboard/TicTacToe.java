@@ -66,7 +66,13 @@ public class TicTacToe extends GameBoard {
                     play(player1.stupid_play(super.get_history(super.get_history().size()-1)));//Rien de très brillant
                     break;
                 case 3:
-                    
+                    List<Position> liste = new ArrayList<>();
+                    liste=next_win();
+                    while(tour_ok==false){
+                        tour=player1.smart_play(super.get_history(super.get_history().size()-1),liste);
+                        tour_ok=check_tour(tour);
+                    }
+                    play(tour);
                     }
             
             display_gameboard(); // on affiche son coup
@@ -111,6 +117,15 @@ public class TicTacToe extends GameBoard {
                             };
                     play(tour);
              break;
+                case 3:
+                    List<Position> liste = new ArrayList<>();
+                    liste=next_win();
+                    while(tour_ok==false){
+                        tour=player1.smart_play(super.get_history(super.get_history().size()-1),liste);
+                        tour_ok=check_tour(tour);
+                    }
+                    play(tour);
+                    break;
              }
             
             display_gameboard();
@@ -134,7 +149,7 @@ public class TicTacToe extends GameBoard {
     public Turn lastTurn() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    public List<Position> new_win()
+    public List<Position> next_win()
     {
         int i=0;
         List<Position> pos_tab = new ArrayList<>();

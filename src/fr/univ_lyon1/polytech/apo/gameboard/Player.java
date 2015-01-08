@@ -1,5 +1,7 @@
 package fr.univ_lyon1.polytech.apo.gameboard;
 
+import java.util.List;
+
 /**
  *
  * @author YOU
@@ -21,6 +23,7 @@ public abstract class Player {
     
     public abstract Turn play();
     public abstract Turn random_play(boolean b);
+    public abstract Turn smart_play(Turn tour, List<Position> liste);
 
     public abstract Turn stupid_play(Turn _history);
 }

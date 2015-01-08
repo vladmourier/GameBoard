@@ -6,6 +6,7 @@
 
 package fr.univ_lyon1.polytech.apo.gameboard;
 
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -42,6 +43,11 @@ public Turn random_play(boolean b)//b indique le jeu : false => puissance4
 
     @Override
     public Turn stupid_play(Turn _history) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Turn smart_play(Turn tour, List<Position> liste) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

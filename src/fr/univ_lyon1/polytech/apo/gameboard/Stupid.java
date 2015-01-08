@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package fr.univ_lyon1.polytech.apo.gameboard;
+import java.util.List;
 import java.util.Random;
 /**
  *
@@ -70,5 +71,10 @@ public class Stupid extends Player {
                     break;
         }
          return new Turn (position, this);
+    }
+
+    @Override
+    public Turn smart_play(Turn tour, List<Position> liste) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
