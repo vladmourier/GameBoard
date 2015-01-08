@@ -132,14 +132,14 @@ public class TicTacToe extends GameBoard {
     @Override
     public Player win() {
         
-        if(((get_board()[0][0] == get_board()[0][1]) && (get_board()[0][0] == get_board()[0][2])) ||        //première ligne
-                ((get_board()[1][0] == get_board()[1][1]) && (get_board()[1][0] == get_board()[1][2])) ||   //deuxième ligne
-                ((get_board()[2][0] == get_board()[2][1]) && (get_board()[2][0] == get_board()[2][2])) ||   //troisième ligne
-                ((get_board()[0][0] == get_board()[1][0]) && (get_board()[0][0] == get_board()[2][0])) ||   //première colonne
-                ((get_board()[0][1] == get_board()[1][1]) && (get_board()[0][1] == get_board()[2][1])) ||   //deuxième colonne
-                ((get_board()[0][2] == get_board()[2][1]) && (get_board()[0][2] == get_board()[0][2])) ||   //troisième colonne
-                ((get_board()[0][0] == get_board()[1][1]) && (get_board()[0][0] == get_board()[2][2])) ||   //diagonale \
-                ((get_board()[0][2] == get_board()[1][1]) && (get_board()[0][2] == get_board()[2][0])))     //diagonale /
+        if(((get_board()[0][0] == get_board()[0][1]) && (get_board()[0][0] == get_board()[0][2]) && (get_board()[0][0] != 0)) ||        //première colonne
+                ((get_board()[1][0] == get_board()[1][1]) && (get_board()[1][0] == get_board()[1][2]) && (get_board()[1][0] != 0)) ||   //deuxième colonne
+                ((get_board()[2][0] == get_board()[2][1]) && (get_board()[2][0] == get_board()[2][2]) && (get_board()[2][0] != 0)) ||   //troisième colonne
+                ((get_board()[0][0] == get_board()[1][0]) && (get_board()[0][0] == get_board()[2][0]) && (get_board()[0][0] != 0)) ||   //première ligne
+                ((get_board()[0][1] == get_board()[1][1]) && (get_board()[0][1] == get_board()[2][1]) && (get_board()[0][1] != 0)) ||   //deuxième ligne
+                ((get_board()[0][2] == get_board()[2][1]) && (get_board()[0][2] == get_board()[0][2]) && (get_board()[0][2] != 0)) ||   //troisième ligne
+                ((get_board()[0][0] == get_board()[1][1]) && (get_board()[0][0] == get_board()[2][2]) && (get_board()[0][0] != 0)) ||   //diagonale /
+                ((get_board()[0][2] == get_board()[1][1]) && (get_board()[0][2] == get_board()[2][0]) && (get_board()[0][2] != 0)))     //diagonale \
         {
             return get_history(get_history().size() - 1).player;
         }
