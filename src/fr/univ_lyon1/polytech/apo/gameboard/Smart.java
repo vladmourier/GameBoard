@@ -15,12 +15,11 @@ import java.util.Random;
  */
 public class Smart extends Stupid {
     
-    private int nb_coups_joues;
     private List<Position> mes_coups;
 
-    public Smart(int i)
+    public Smart(int i,int j)
     {
-        super(i);
+        super(i,j);
         mes_coups = new ArrayList<>();
     }
     
@@ -35,18 +34,21 @@ public class Smart extends Stupid {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public Turn smart_play(Turn tour, List<Position> liste)
     {
-        set_last_turn(tour);
-        Random voisin = new Random();
+                Random voisin = new Random();
         Position position=null, last_pos;
-        last_pos=new Position(get_last_turn().position.x,get_last_turn().position.y);
-        switch(nb_coups_joues)
+        if(tour==null)
         {
-            case 0:
-                position = new Position(1,1);
-                break;
+         position = new Position(1,1);
+            
+        }   
+        set_last_turn(tour);
+
+        last_pos=new Position(get_last_turn().position.x,get_last_turn().position.y);
+        
+        switch(nb_coups)
+        {
             case 2:
                 if(last_pos.equals(new Position(1,2)))
                 {
@@ -112,29 +114,30 @@ public class Smart extends Stupid {
                 if(!liste.isEmpty()){
                 position = liste.get(voisin.nextInt(liste.size()));}
                 else{
-                    stupid_play(tour);
+                   tour =  stupid_play(tour);
                 }
             case 8:
                 if(!liste.isEmpty()){
                 position = liste.get(voisin.nextInt(liste.size()));}
                 else{
-                    stupid_play(tour);
+                    tour = stupid_play(tour);
                 }
             default:
                                 if(!liste.isEmpty()){
                 position = liste.get(voisin.nextInt(liste.size()));}
                 else{
-                    stupid_play(tour);
+                    tour = stupid_play(tour);
                 }
         }
-        mes_coups.add(position);
-        tour = new Turn(position, this);
-        nb_coups_joues+=2;
+        if(position!=null)
+        {tour = new Turn(position, this);
+            mes_coups.add(position);}
+        nb_coups+=2;
         return tour;
     }
-    @Override
+    
     public Turn stupid_play(Turn tour) {
-    return super.stupid_play(tour);
+    return super.stupid_play(tour, null);
     }
     
 

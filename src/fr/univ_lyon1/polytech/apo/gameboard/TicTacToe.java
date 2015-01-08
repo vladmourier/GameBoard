@@ -48,7 +48,10 @@ public class TicTacToe extends GameBoard {
             }else if (player1.getClass()==Stupid.class)
             {
                 player_type1 =2;
-            }
+            }else if (player1.getClass()==Smart.class)
+            {
+                player_type1 =3;
+            }  
             Turn tour=null;
             switch (player_type1) 
             { 
@@ -63,15 +66,25 @@ public class TicTacToe extends GameBoard {
                     play(player1.random_play(true));// il fait n'importe quoi
                     break;
                 case 2://2 -> Le joueur est stupide
-                    play(player1.stupid_play(super.get_history(super.get_history().size()-1)));//Rien de très brillant
-                    break;
-                case 3:
                     List<Position> liste = new ArrayList<>();
                     liste=next_win();
-                    while(tour_ok==false){
-                        tour=player1.smart_play(super.get_history(super.get_history().size()-1),liste);
-                        tour_ok=check_tour(tour);
+                    if(!super.get_history().isEmpty())
+                    { tour=player1.stupid_play(super.get_history(super.get_history().size()-1), liste);
+                    while(tour_ok==false)
+                    {
+                    tour = player1.stupid_play(super.get_history(super.get_history().size()-1), liste);
+                    tour_ok = check_tour(tour);
                     }
+                    play(tour);
+                    } else play(player1.random_play(true));
+                    break;
+                case 3:
+                    List<Position> liste2 = new ArrayList<>();
+                    liste=next_win();
+                    while(tour_ok==false){
+                        tour = player2.stupid_play(super.get_history(super.get_history().size()-1), liste2);
+                        tour_ok = check_tour(tour);
+                            };
                     play(tour);
                     }
             
@@ -96,7 +109,10 @@ public class TicTacToe extends GameBoard {
             }else if (player2.getClass()==Stupid.class)
             {
                 player_type2 =2;
-            }
+            }else if (player2.getClass()==Smart.class)
+            {
+                player_type2 = 3;
+            } 
             
             switch (player_type2) //idem
             { 
@@ -111,17 +127,21 @@ public class TicTacToe extends GameBoard {
                     play(player2.random_play(true));
                     break;
                 case 2:
+                    List<Position> liste = new ArrayList<>();
+                    liste=next_win();
                     while(tour_ok==false){
-                        tour = player2.stupid_play(super.get_history(super.get_history().size()-1));
+                        tour = player2.stupid_play(super.get_history(super.get_history().size()-1), liste);
                         tour_ok = check_tour(tour);
                             };
                     play(tour);
              break;
                 case 3:
-                    List<Position> liste = new ArrayList<>();
-                    liste=next_win();
+                    List<Position> liste2 = new ArrayList<>();
+                    liste2=next_win();
                     while(tour_ok==false){
-                        tour=player1.smart_play(super.get_history(super.get_history().size()-1),liste);
+                        if(!super.get_history().isEmpty())
+                            tour=player2.smart_play(super.get_history(super.get_history().size()-1),liste2,1);
+                        else tour=player2.smart_play(super.get_history(super.get_history().size()-1),liste2,0);
                         tour_ok=check_tour(tour);
                     }
                     play(tour);
@@ -137,6 +157,10 @@ public class TicTacToe extends GameBoard {
                 victory=true;
             }
         }
+        if(winner.number==99)
+        {
+            System.out.println("Egalité !");
+        }else
         System.out.println("Le joueur "+winner.number+" a gagné");
     }
 
@@ -158,37 +182,45 @@ public class TicTacToe extends GameBoard {
         if((get_board()[0][0]==get_board()[1][0] && get_board()[0][0]!=0)||
                 (get_board()[0][2]==get_board()[1][1] && get_board()[0][2]!=0)||
                 (get_board()[2][2]==get_board()[2][1] && get_board()[2][2]!=0))
+            if(get_board()[2][0]==0)
             pos_tab.add(new Position(2,0));
         
         if((get_board()[0][0]==get_board()[0][1] && get_board()[0][0]!=0)||
                 (get_board()[2][0]==get_board()[1][1] && get_board()[2][0]!=0)||
                 (get_board()[2][2]==get_board()[1][2] && get_board()[2][2]!=0))
+                        if(get_board()[0][2]==0)
             pos_tab.add(new Position(0,2));
             
         if((get_board()[0][0]==get_board()[1][1] && get_board()[0][0]!=0)||
                 (get_board()[2][0]==get_board()[2][1] && get_board()[2][0]!=0)||
                 (get_board()[0][2]==get_board()[1][2] && get_board()[0][2]!=0))
+                        if(get_board()[2][2]==0)
             pos_tab.add(new Position(2,2));
         
         if((get_board()[2][0]==get_board()[1][0] && get_board()[2][0]!=0)||
         (get_board()[0][2]==get_board()[0][1] && get_board()[0][2]!=0)||
         (get_board()[2][2]==get_board()[1][1] && get_board()[2][2]!=0))
+                        if(get_board()[0][0]==0)
             pos_tab.add(new Position(0,0));
         
         if(get_board()[0][1]==get_board()[1][1] && get_board()[0][1]!=0)
+                        if(get_board()[2][1]==0)
             pos_tab.add(new Position(2,1));
         if(get_board()[2][1]==get_board()[1][1] && get_board()[2][1]!=0)
+                        if(get_board()[0][1]==0)
             pos_tab.add(new Position(0,1));
         if(get_board()[1][0]==get_board()[1][1] && get_board()[1][0]!=0)
+                        if(get_board()[1][2]==0)
             pos_tab.add(new Position(1,2));
         if(get_board()[1][2]==get_board()[1][1] && get_board()[1][1]!=0)
+                        if(get_board()[1][0]==0)
             pos_tab.add(new Position(1,0));
         
     return pos_tab;
     }
     @Override
     public Player win() {
-        
+        int nb_cases_nulles=9;
         if(((get_board()[0][0] == get_board()[0][1]) && (get_board()[0][0] == get_board()[0][2]) && (get_board()[0][0] != 0)) ||        //première colonne
                 ((get_board()[1][0] == get_board()[1][1]) && (get_board()[1][0] == get_board()[1][2]) && (get_board()[1][0] != 0)) ||   //deuxième colonne
                 ((get_board()[2][0] == get_board()[2][1]) && (get_board()[2][0] == get_board()[2][2]) && (get_board()[2][0] != 0)) ||   //troisième colonne
@@ -200,7 +232,17 @@ public class TicTacToe extends GameBoard {
         {
             return get_history(get_history().size() - 1).player;
         }
-        else return null;
+        for(int i=0;i<width;i++)
+        {
+            for(int j=0;j<length;j++)
+            {
+                if(get_board()[i][j]!=0)
+                    nb_cases_nulles--;
+            }
+        }
+        if(nb_cases_nulles==0)
+            return new Human(99);
+        return null;
     }
 
     @Override

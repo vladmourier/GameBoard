@@ -12,9 +12,13 @@ import java.util.Random;
  */
 public class Stupid extends Player {
     private Turn last_turn;
-    public Stupid(int i)
+    private int nb_coups_joues;
+
+    public Stupid(int i, int j)
     {
         super(i);
+        if(j!=0)
+            nb_coups_joues=1;
         last_turn=null;
     }
     public Turn get_last_turn(){
@@ -25,20 +29,32 @@ public class Stupid extends Player {
     }
     @Override
     public Turn play() {
-        return stupid_play(null);
+        return stupid_play(null,null);
     }
 
     @Override
     public Turn random_play(boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Random r = new Random();
+        return new Turn(new Position(r.nextInt(3),r.nextInt(3)),this);
     }
     @Override
-    public Turn stupid_play (Turn tour)
+    public Turn stupid_play (Turn tour, List<Position> liste)
     {
+                Position position=null, last_pos;
+                Random dir = new Random();
+        if(!liste.isEmpty())
+        {
+                position = liste.get(dir.nextInt(liste.size()));
+        return new Turn (position, this);}
+        if(tour==null || nb_coups_joues>3)//Si personne n'a joué ou qu'on touche à la fin on joue au pif
+        {
+            nb_coups_joues++;
+            return new Turn(new Position(dir.nextInt(3),dir.nextInt(3)), this);
+        }
         last_turn=tour;
-        Position position=null, last_pos;
         last_pos=new Position(last_turn.position.x,last_turn.position.y);
-        Random dir = new Random();
+
+
         int direction;//Direction représente les 8 possibilités
         //1->haut//2->bas//3->gauche//4->droite//5->haut_gauche//6->haut_droit//
         //7->bas_gauche//8->bas_droit
@@ -70,11 +86,13 @@ public class Stupid extends Player {
                    position = new Position(last_pos.x+1, last_pos.y-1);
                     break;
         }
-         return new Turn (position, this);
+        if(position!=null)
+        {System.out.println("le coup précédent était en : ["+last_pos.x+"] ["+last_pos.y+" \n x="+position.x+" dir="+direction+" et y="+position.y);
+        }this.nb_coups_joues++; 
+        return new Turn (position, this);
     }
 
-    @Override
-    public Turn smart_play(Turn tour, List<Position> liste) {
+    public Turn smart_play(Turn tour, List<Position> liste, int i) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

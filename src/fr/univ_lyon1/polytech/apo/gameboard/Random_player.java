@@ -41,13 +41,17 @@ public Turn random_play(boolean b)//b indique le jeu : false => puissance4
         return tour;
 }
 
-    @Override
     public Turn stupid_play(Turn _history) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Turn smart_play(Turn tour, List<Position> liste) {
+    public Turn smart_play(Turn tour, List<Position> liste, int i) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Turn stupid_play(Turn _history, List<Position> liste) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
