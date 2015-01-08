@@ -41,11 +41,11 @@ public class Smart extends Stupid {
         if(tour==null)
         {
          position = new Position(1,1);
-            
+         return new Turn(position, this);            
         }   
         set_last_turn(tour);
 
-        last_pos=new Position(get_last_turn().position.x,get_last_turn().position.y);
+        last_pos=new Position(tour.position.x,tour.position.y);
         
         switch(nb_coups)
         {
@@ -114,19 +114,19 @@ public class Smart extends Stupid {
                 if(!liste.isEmpty()){
                 position = liste.get(voisin.nextInt(liste.size()));}
                 else{
-                   tour =  stupid_play(tour);
+                   tour =  stupid_play(tour, liste);
                 }
             case 8:
                 if(!liste.isEmpty()){
                 position = liste.get(voisin.nextInt(liste.size()));}
                 else{
-                    tour = stupid_play(tour);
+                    tour = stupid_play(tour, liste);
                 }
             default:
                                 if(!liste.isEmpty()){
                 position = liste.get(voisin.nextInt(liste.size()));}
                 else{
-                    tour = stupid_play(tour);
+                    tour = stupid_play(tour, liste);
                 }
         }
         if(position!=null)
@@ -136,8 +136,9 @@ public class Smart extends Stupid {
         return tour;
     }
     
-    public Turn stupid_play(Turn tour) {
-    return super.stupid_play(tour, null);
+    @Override
+    public Turn stupid_play(Turn tour, List<Position> liste) {
+    return super.stupid_play(tour, liste);
     }
     
 

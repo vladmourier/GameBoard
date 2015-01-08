@@ -78,14 +78,20 @@ public class TicTacToe extends GameBoard {
                     play(tour);
                     } else play(player1.random_play(true));
                     break;
-                case 3:
+                case 3://Le joueur est Smart
                     List<Position> liste2 = new ArrayList<>();
-                    liste=next_win();
+                    liste2=next_win();
                     while(tour_ok==false){
-                        tour = player2.stupid_play(super.get_history(super.get_history().size()-1), liste2);
+                        if(super.get_history().isEmpty())
+                        {
+                            tour = player1.smart_play(null, liste2);
+                        }else{
+                        tour = player1.smart_play(super.get_history(super.get_history().size()-1), liste2) ;
+                                }
                         tour_ok = check_tour(tour);
                             };
                     play(tour);
+                    break;
                     }
             
             display_gameboard(); // on affiche son coup
@@ -139,11 +145,14 @@ public class TicTacToe extends GameBoard {
                     List<Position> liste2 = new ArrayList<>();
                     liste2=next_win();
                     while(tour_ok==false){
-                        if(!super.get_history().isEmpty())
-                            tour=player2.smart_play(super.get_history(super.get_history().size()-1),liste2,1);
-                        else tour=player2.smart_play(super.get_history(super.get_history().size()-1),liste2,0);
-                        tour_ok=check_tour(tour);
-                    }
+                        if(super.get_history().isEmpty())
+                        {
+                            tour = player2.stupid_play(null, liste2);
+                        }else{
+                        tour = player2.stupid_play(super.get_history(super.get_history().size()-1), liste2) ;
+                                }
+                        tour_ok = check_tour(tour);
+                            };
                     play(tour);
                     break;
              }

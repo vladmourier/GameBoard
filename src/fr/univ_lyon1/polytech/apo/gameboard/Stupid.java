@@ -42,10 +42,10 @@ public class Stupid extends Player {
     {
                 Position position=null, last_pos;
                 Random dir = new Random();
-        if(!liste.isEmpty())
+ /*       if(!liste.isEmpty()) //////// Ces trois lignes permettent de faire jouer l'IA stupide sur les cases gagnantes                      
         {
-                position = liste.get(dir.nextInt(liste.size()));
-        return new Turn (position, this);}
+                position = liste.get(dir.nextInt(liste.size()));//Elle peut ainsi bloquer l'adversaire et s'avérer pas si stupide que ça  
+        return new Turn (position, this);} //(Nombreuses égalités entre smart et stupid en faisant commencer smart)*/
         if(tour==null || nb_coups_joues>3)//Si personne n'a joué ou qu'on touche à la fin on joue au pif
         {
             nb_coups_joues++;
@@ -92,7 +92,7 @@ public class Stupid extends Player {
         return new Turn (position, this);
     }
 
-    public Turn smart_play(Turn tour, List<Position> liste, int i) {
+    public Turn smart_play(Turn tour, List<Position> liste) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

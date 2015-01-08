@@ -47,7 +47,7 @@ public class Human extends Player {
     }
 
     @Override
-    public Turn smart_play(Turn tour, List<Position> liste, int i) {
+    public Turn smart_play(Turn tour, List<Position> liste) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
