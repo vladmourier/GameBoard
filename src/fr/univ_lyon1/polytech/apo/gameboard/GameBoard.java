@@ -105,59 +105,62 @@ public abstract class GameBoard implements Serializable {
         return null;
     }
     
-    public boolean next_position (int i, int j, int direction)//direction: 0 -> cherches en haut  // 2-> cherches en diagonale \ vers le haut
-    // 1 -> cherches en bas // 3 -> cherches en diagonale \ vers le bas // 4 -> cherches en diagonale / vers le haut, 5 pour le bas
+    public Position next_position (Position pos, int direction)
+            /*      1 2 3
+                    4 5 6
+                    7 8 9
+            
+                    La direction 5 est la direction défault et renvoie faux
+            */
     {
-        if((i+1>=width&&direction==0)||(j-1>=length&&direction==1)||
-          (i-1<0&&j+1>=length&&direction==2)||(direction==3&&i+1>=width&&j-1<0)||
-          (direction==4&&i+1>=width&&j+1>=length)||(direction==5&&i-1<0&&j-1<0))
+        if(((direction == 1 || direction == 2 || direction == 3) && (pos.x + 1 >= length)) ||       //On vérifie qu'on ne déborde pas en hauteur en haut
+                ((direction == 3 || direction == 6 || direction == 9) && (pos.y + 1 >= width)) ||   //On vérifie qu'on ne déborde pas en largeur à droite
+                ((direction == 7 || direction == 8 || direction == 9) && (pos.x - 1 < 0)) ||        //On vérifie qu'on ne déborde pas en hauteur en bas
+                ((direction == 1 || direction == 4 || direction == 7) && (pos.y - 1 < 0)))          //On vérifie qu'on ne déborde pas en largeur à gauche
         {
-            return false;
+            return null;
         }
             
         switch (direction)
         {
-            case 0:
-                if(board[i][j+1]==board[i][j])
-                {
-                    return true;
-                }
             case 1:
-                if(board[i][j-1]==board[i][j])
-                {
-                    return true;
-                }
+                pos.x--;
+                pos.y++;
+                return pos;
+                
             case 2:
-                 if(board[i+1][j]==board[i][j])
-                {
-                    return true;
-                }
+                pos.y++;
+                return pos;
+                
             case 3:
-                 if(board[i-1][j]==board[i][j])
-                {
-                    return true;
-                }
-            case 4 : 
-                if(board[i-1][j+1]==board[i][j])
-                {
-                    return true;
-                }
-            case 5 :
-                if(board[i+1][j-1]==board[i][j])
-                {
-                    return true;
-                }
-            case 6 :
-                if(board[i+1][j+1]==board[i][j])
-                {
-                    return true;
-                }
+                pos.x++;
+                pos.y++;
+                return pos;
+                
+            case 4:
+                pos.x--;
+                return pos;
+                
+            case 6 : 
+                pos.x++;
+                return pos;
+                
             case 7 :
-                if(board[i-1][j-1]==board[i][j])
-                {
-                    return true;
-                }
+                pos.x--;
+                pos.y--;
+                return pos;
+                
+            case 8 :
+                pos.y--;
+                return pos;
+                
+            case 9 :
+                pos.x++;
+                pos.y--;
+                return pos;
+                
+            default :
+                return null;
         }
-                        return false;
     }
 }

@@ -190,58 +190,48 @@ public class ConnectFour extends GameBoard {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     @Override
-    public Player win() {
-        
-        
-        int[][] combinaisons=new int[2][8];//2 pour les deux joueurs, 4pour les 2axes + 2*2 diagonales.
-        int curseur=0, player1_ind=0, player2_ind=0;
-        boolean player_ok=false;
-        
-        while(player_ok==false){
-                    
-             for(int j=length-1;j>=0;j--) 
-        {
-            for(int i = 0; i<width;i++)
+    public Player win()
+    {
+       Turn last_turn = get_history(get_history().size() - 1);
+       Position last_pos = last_turn.position;
+       Player last_player = last_turn.player;
+       
+       for(int i = 1; i < 5; i++)       //Parcourt de la moitié des positions, l'autre moitié étant les opposées elles sont parcourues automatiquement
+       {
+           Position temp_pos = last_pos;        //initialisation de la position temporaire
+           int consecutive = 1;                 //compteur
+           
+           while(next_position(temp_pos, i) != null)        //on parcourt dans la direction choisie tant qu'on reste sur le plateau
+           {
+               if(get_board()[temp_pos.x][temp_pos.y] == last_player.number)//compare la valeur de la case suivante dans la direction choisie avec le dernier joueur
+               {
+                   consecutive++;
+               }
+               else
+               {
+                   break;       //Détection d'un joueur différent dans la direction choisie, on ne progresse plus dans cette direction
+               }
+           }
+           
+           temp_pos = last_pos;     //On repart de la case d'origine pour un parcourt dans le sens opposé
+           
+            while(next_position(temp_pos, 10 - i) != null)      //On parcourt l'opposée de la direction précédente tant qu'on reste sur le plateau
+           {
+               if(get_board()[temp_pos.x][temp_pos.y] == last_player.number)
+               {
+                   consecutive++;
+               }
+               else
+               {
+                   break;
+               }
+           }
+            if(consecutive >= 4)        //4 pions au moins sont alignés, le dernier joueur est vainqueur
             {
-             int k=j,l=i;
-             int courant = get_board(i,j);
-             if(courant != 0)
-             {
-                 player1_ind=courant;
-             }
-             if(courant != player1_ind)
-             {
-                 player2_ind= courant;
-             }
-             
-             while(k>0)
-             {
-                 while(l<width)
-                 {
-                 if(courant!=0)
-                 {
-                     for(int direction=0;direction<8;direction++)
-                     {
-                         if(next_position(k,l,direction))
-                         combinaisons[0][direction]+=1;
-                     }
-                 }
-                 k--;
-                }
-                 l++;
-             }
+                return last_player;
             }
-        }
-        }
-        
-             
-             if((combinaisons[0][2]+combinaisons[0][3]+1>=4) ||(combinaisons[0][0]+combinaisons[0][1]+1>=4 )||
-                     (combinaisons[0][4]+combinaisons[0][5]+1>=4 )|| (combinaisons[0][6]+combinaisons[0][7]+1>=4))
-             {
-                 return null;
-             }
-                Player vainqueur= new Human (0);
-        return vainqueur;
+       }
+       return null;                                
     }
 
     @Override
