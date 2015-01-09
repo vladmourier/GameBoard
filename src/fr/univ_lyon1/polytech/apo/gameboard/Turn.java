@@ -8,6 +8,7 @@ package fr.univ_lyon1.polytech.apo.gameboard;
 import java.io.Serializable;
 
 public class Turn implements Serializable {
+    private static final long serialVersionUID = -2713278405794769091L;
     
     public final Position position;
     public final Player player;

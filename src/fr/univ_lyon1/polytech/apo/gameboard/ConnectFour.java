@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ConnectFour extends GameBoard {
+    private static final long serialVersionUID = -5564052501198830743L;
+    //private static final long serialVersionUID = 1L;
    
     public ConnectFour(){
         super(7, 6);
@@ -67,19 +69,19 @@ public class ConnectFour extends GameBoard {
                         {
                         try
                         {
-                                IncorrectInputException e = new IncorrectInputException();
                                 System.out.println("Voulez vous annuler le tour précédent? y/n \n Sauvegarder? s");
                                 str = sc.nextLine();
-                                if (str.length()-1>1 || str.contains("s") || (str.contains("y")) ||
-                                        (str.contains("n"))||str.length()<=0)
+                                if (!(str.startsWith("s") || str.startsWith("y") ||
+                                        str.startsWith("n")))
                                 {
-                                    throw e;
+                                    throw new IncorrectInputException();
                                 }
                                 ok=true;
                             }
                             catch(IncorrectInputException e)
                             {
-                                System.out.println("Entree non valide");
+                                
+                                System.out.println("Entree non valide : "+str.charAt(0));
                             }
                         }
                         if(str.charAt(0)=='y')

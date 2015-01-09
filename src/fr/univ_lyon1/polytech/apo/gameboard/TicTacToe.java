@@ -14,6 +14,7 @@ import java.util.List;
  * @author Vladimir
  */
 public class TicTacToe extends GameBoard {
+    private static final long serialVersionUID = 7195780419332121374L;
 
     public TicTacToe()
     {
