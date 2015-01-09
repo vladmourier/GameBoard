@@ -184,7 +184,7 @@ public class Game {
                                   //1 pour le morpion, 9 pour quitter
     {
     Scanner sc = new Scanner(System.in);
-    System.out.println("Choisissez un jeu : 0 pour Puissance4, 1 pour le Morpion \n 1 pour charger la partie précédente \n Si vous désirez quitter entrez 9");
+    System.out.println("Choisissez un jeu : 0 pour Puissance4, 1 pour le Morpion \n 2 pour charger la partie précédente \n Si vous désirez quitter entrez 9");
     String str = sc.nextLine();
     System.out.println("Vous avez saisi : " + str);
     return (int) str.charAt(0)-'0';
@@ -202,7 +202,7 @@ public class Game {
     
     public static void load_game() throws IOException, ClassNotFoundException
     {
-        File f1 = new File("save/gameboard.txt");
+        File f1 = new File("/save/gameboard.txt");
         ObjectInputStream ios1 = new ObjectInputStream(new FileInputStream(f1));
         gameboard = (GameBoard) ios1.readObject();
         for (Turn _history : gameboard.get_history()) 
