@@ -1,11 +1,12 @@
+/**
+ * @author p1206512 & p1206617
+ * COMTE Adrien & MOURIER Vladimir
+ */
+
 package fr.univ_lyon1.polytech.apo.gameboard;
 
 import java.io.Serializable;
 
-/**
- *
- * @author YOU
- */
 public class Turn implements Serializable {
     
     public final Position position;

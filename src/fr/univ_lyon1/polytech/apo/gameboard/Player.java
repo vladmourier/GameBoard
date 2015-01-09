@@ -1,11 +1,12 @@
+/**
+ * @author p1206512 & p1206617
+ * COMTE Adrien & MOURIER Vladimir
+ */
+
 package fr.univ_lyon1.polytech.apo.gameboard;
 
 import java.util.List;
 
-/**
- *
- * @author YOU
- */
 public abstract class Player {
     public final int number;        //identifiant du joueur
     public GameBoard board;         //plateau de jeu
