@@ -32,7 +32,7 @@ public class Game {
                 load_game();
                 }catch(IOException e)
                 {
-                    System.out.println("Impossible de charger la partie");
+                    System.out.println("Impossible de charger la partie"+e.getMessage());
                 }catch(ClassNotFoundException c)
                 {
                     System.out.println("La classe que vous voulez déserialiser n'existe pas");
