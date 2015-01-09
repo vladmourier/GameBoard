@@ -202,7 +202,7 @@ public class Game {
     
     public static void load_game() throws IOException, ClassNotFoundException
     {
-        File f1 = new File("save/gameboard.txt");
+        File f1 = new File("/save/gameboard.txt");
         ObjectInputStream ios1 = new ObjectInputStream(new FileInputStream(f1));
         gameboard = (GameBoard) ios1.readObject();
         for (Turn _history : gameboard.get_history()) 
