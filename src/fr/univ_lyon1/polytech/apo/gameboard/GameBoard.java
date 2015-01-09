@@ -117,6 +117,7 @@ public abstract class GameBoard implements Serializable {
             */
     {
         Position pos = new Position(pose.x, pose.y);
+        System.out.println("dir ="+direction+" et last_pos =["+pos.x+", "+pos.y+"]");
         if(((direction == 1 || direction == 2 || direction == 3) && (pos.x + 1 >= length)) ||       //On vérifie qu'on ne déborde pas en hauteur en haut
                 ((direction == 3 || direction == 6 || direction == 9) && (pos.y + 1 >= width)) ||   //On vérifie qu'on ne déborde pas en largeur à droite
                 ((direction == 7 || direction == 8 || direction == 9) && (pos.x - 1 < 0)) ||        //On vérifie qu'on ne déborde pas en hauteur en bas

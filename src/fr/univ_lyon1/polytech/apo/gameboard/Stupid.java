@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package fr.univ_lyon1.polytech.apo.gameboard;
-import java.util.List;
 import java.util.Random;
 /**
  *
@@ -31,11 +30,11 @@ public class Stupid extends Random_player {
         }
         for (int i = 1; i < 10; i ++)                                           //On parcourt toutes les cases adjacentes
         {
-
-            if(board.next_position(last_turn.position,i)!=null)
+            Position adjacente = board.next_position(last_turn.position,i);
+            if(adjacente!=null)
             {
-                x=board.next_position(last_turn.position,i).x;
-                y=board.next_position(last_turn.position,i).y;
+                x=adjacente.x;
+                y=adjacente.y;
                 if(x>=3 || y>=3 || x<0 || y<0)
                     return false;
             }
@@ -59,18 +58,23 @@ public class Stupid extends Random_player {
             {return new Turn (new Position(dir.nextInt(board.width),dir.nextInt(board.length)),this);}
             
             Turn last_turn = board.get_history(board.get_history().size() - 1);         //Récupération du dernier tour joué, null si aucun tour joué
-            Position p = board.next_position(last_turn.position, dir.nextInt(9));       //On génère la position du prochain coup, null si identique ou hors du tableau
-
+            Position p = board.next_position(last_turn.position, dir.nextInt(9)+1);       //On génère la position du prochain coup, null si identique ou hors du tableau
+            int nb_essais=0;
             while (p == null)
             {
-                p = board.next_position(last_turn.position, dir.nextInt(9));            //On boucle jusqu'à avoir une position dans le tableau
-                if(p!=null)
+                p = board.next_position(last_turn.position, dir.nextInt(9)+1);            //On boucle jusqu'à avoir une position dans le tableau
+                nb_essais++;
+                if(nb_essais>14 && p!=null)
+                {
+                    p= new Position(dir.nextInt(board.width),dir.nextInt(board.length));
+                }
+                         if(p!=null)
                 {
                 if(p.x<0 || p.x>=3 || p.y<0 ||p.y>=3)
-                    p=null;
-                if(board.get_board(p.x, p.y)!=0)
-                    p=null;
-            }
+                { p=null;}
+                else if(board.get_board(p.x, p.y)!=0)
+                { p=null;}
+                }
             }
 
             Turn t = new Turn (p, this);
