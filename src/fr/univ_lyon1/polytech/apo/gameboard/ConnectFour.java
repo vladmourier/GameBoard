@@ -6,6 +6,7 @@
 
 package fr.univ_lyon1.polytech.apo.gameboard;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -60,24 +61,32 @@ public class ConnectFour extends GameBoard {
             switch (player_type1) 
             { 
                 case 0:// 0 => le joueur 1 est humain
-                    System.out.println("Voulez vous annuler le tour précédent? y/n");
+                    System.out.println("Voulez vous annuler le tour précédent? y/n \n Sauvegarder? s");
                     Scanner sc = new Scanner(System.in);
                     String str = sc.nextLine();
                     if(str.charAt(0)=='y')
                     {
                         cancel();
                         cancel();
+                    }else if(str.charAt(0)=='s'){
+                       try{ Game.save_game();                        
+                    }catch(IOException e)
+                    {
+                        System.out.println("Impossible de sauvegarder");
                     }
+                    }
+
                     
                     while(tour_ok==false)
                     {
                         tour = player1.play();
                         tour_ok = check_tour(tour);
                        System.out.println("Valider le coup? y/n");
+                       display_gameboard(this.toString());
                        str=sc.nextLine();
                        if(str.charAt(0)!='y')
                        {
-                           tour_ok=false;
+                           tour_ok=true;
                        }
                      }
                     play(tour);// il joue donc comme un humain
@@ -172,21 +181,15 @@ public class ConnectFour extends GameBoard {
         return !(tour.position.x >= this.width 
                 || tour.position.x<0);
     }
+    @Override
         public void cancel() {//On met la case visée par le dernier coup à 0
-            
-        set_board(super.get_history().get(super.get_history().size()-1).position.x, super.get_history().get(super.get_history().size()-1).position.y,0);
+            super.cancel();
         }
     
         @Override
     public Turn lastTurn() 
     {
-        try{
-            return super.get_history().get(super.get_history().size()-1);    }
-        catch(NullPointerException e)
-            {
-                System.out.println("Vous ne pouvez pas accéder au tour précédent, il n'y en a sans doute pas");
-                return null;
-            }
+        return super.lastTurn();
     }
     @Override
     public Player win()

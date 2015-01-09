@@ -169,13 +169,15 @@ public class TicTacToe extends GameBoard {
     }
 
     @Override
-    public void cancel() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void cancel() 
+    {
+        super.cancel();    
     }
 
     @Override
-    public Turn lastTurn() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Turn lastTurn() 
+    {
+        return super.lastTurn();    
     }
     public List<Position> next_win()
     {
