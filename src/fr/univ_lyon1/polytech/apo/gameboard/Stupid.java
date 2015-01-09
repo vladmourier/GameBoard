@@ -10,89 +10,54 @@ import java.util.Random;
  *
  * @author Vladimir
  */
-public class Stupid extends Player {
-    private Turn last_turn;
-    private int nb_coups_joues;
+public class Stupid extends Random_player {
 
-    public Stupid(int i, int j)
+    public Stupid(int i, GameBoard b)
     {
-        super(i);
-        if(j!=0)
-            nb_coups_joues=1;
-        last_turn=null;
+        super(i, b);
     }
-    public Turn get_last_turn(){
-        return last_turn;
-    }
-    public void set_last_turn(Turn tour){
-        this.last_turn=tour;
-    }
-    @Override
-    public Turn play() {
-        return stupid_play(null,null);
-    }
-
-    @Override
-    public Turn random_play(boolean b) {
-        Random r = new Random();
-        return new Turn(new Position(r.nextInt(3),r.nextInt(3)),this);
-    }
-    @Override
-    public Turn stupid_play (Turn tour, List<Position> liste)
+    
+    private boolean jouable()
     {
-                Position position=null, last_pos;
-                Random dir = new Random();
- /*       if(!liste.isEmpty()) //////// Ces trois lignes permettent de faire jouer l'IA stupide sur les cases gagnantes                      
+        Turn last_turn = board.get_history(board.get_history().size() - 1);
+        if(last_turn == null)                                                   //il n'y a pas de dernière cases jouée, donc pas de cases jouables pour Stupid
         {
-                position = liste.get(dir.nextInt(liste.size()));//Elle peut ainsi bloquer l'adversaire et s'avérer pas si stupide que ça  
-        return new Turn (position, this);} //(Nombreuses égalités entre smart et stupid en faisant commencer smart)*/
-        if(tour==null || nb_coups_joues>3)//Si personne n'a joué ou qu'on touche à la fin on joue au pif
-        {
-            nb_coups_joues++;
-            return new Turn(new Position(dir.nextInt(3),dir.nextInt(3)), this);
+            return false;
         }
-        last_turn=tour;
-        last_pos=new Position(last_turn.position.x,last_turn.position.y);
-
-
-        int direction;//Direction représente les 8 possibilités
-        //1->haut//2->bas//3->gauche//4->droite//5->haut_gauche//6->haut_droit//
-        //7->bas_gauche//8->bas_droit
-        direction=dir.nextInt(8);
-        switch(direction)
+        for (int i = 1; i < 10; i ++)                                           //On parcourt toutes les cases adjacentes
         {
-                case 0:
-                    position = new Position(last_pos.x,last_pos.y+1);
-                    break;
-                case 1:
-                    position = new Position(last_pos.x, last_pos.y-1);
-                break;
-                case 2:
-                    position = new Position(last_pos.x-1, last_pos.y);
-                    break;
-                case 3:
-                    position = new Position(last_pos.x+1, last_pos.y);
-                    break;
-                case 4:
-                   position = new Position(last_pos.x-1, last_pos.y+1);
-                    break;
-                case 5:
-                   position = new Position(last_pos.x+1, last_pos.y+1);
-                    break;
-                case 6: 
-                   position = new Position(last_pos.x-1, last_pos.y-1);
-                    break;
-                case 7:
-                   position = new Position(last_pos.x+1, last_pos.y-1);
-                    break;
+            Position temp_pos = board.next_position(last_turn.position, i);     //On récupère les positions des cases adjacentes
+            if(temp_pos != null)                                                //Si la case récupérée dans la direction existe
+            {
+                if(board.get_board(temp_pos.x, temp_pos.y) == 0)                //Si la case est vide
+                {
+                    return true;
+                }
+            }
         }
-        if(position!=null)
-        {System.out.println("le coup précédent était en : ["+last_pos.x+"] ["+last_pos.y+" \n x="+position.x+" dir="+direction+" et y="+position.y);
-        }this.nb_coups_joues++; 
-        return new Turn (position, this);
+        return false;
     }
+    
+    public Turn play()
+    {
+        if(this.jouable())
+        {
+            Random dir = new Random();                                                  //Direction aléatoire
+            Turn last_turn = board.get_history(board.get_history().size() - 1);         //Récupération du dernier tour joué, null si aucun tour joué
+            Position p = board.next_position(last_turn.position, dir.nextInt(9));       //On génère la position du prochain coup, null si identique ou hors du tableau
 
-    public Turn smart_play(Turn tour, List<Position> liste) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            while (p == null)
+            {
+                p = board.next_position(last_turn.position, dir.nextInt(9));            //On boucle jusqu'à avoir une position dans le tableau
+            }
+
+            Turn t = new Turn (p, this);
+            return t;
+        }
+        else
+        {
+            super.play();           //Si on ne peut pas jouer de cases à la manière de Stupid, on joue au hasard
+        }
+        return null;
     }
 }

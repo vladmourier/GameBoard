@@ -15,44 +15,22 @@ import java.util.Random;
  */
 public class Random_player extends Player {
         
-    public Random_player(int i)
+    public Random_player(int i, GameBoard b)
     {
-        super(i);
+        super(i, b);
     }
+    
     @Override
-    public Turn play(){
-        return random_play(false);
-    }
-    @Override
-public Turn random_play(boolean b)//b indique le jeu : false => puissance4
-                                  //                   true  => morpion
-{
-            Turn  tour;
+    public Turn play()
+    {
         Random abs = new Random();
         Random ord = new Random();
-        Position position;
-        if(b==false)
+        Position p =  new Position(abs.nextInt(board.width), ord.nextInt(board.length));        //Nouvelle position obligatoirement dans la gameboard
+        while(board.get_board(p.x, p.y) != 0)
         {
-        position = new Position(abs.nextInt(7),ord.nextInt(6));
-        } else{
-            position = new Position(abs.nextInt(3), ord.nextInt(3));
+            p =  new Position(abs.nextInt(board.width), ord.nextInt(board.length));             //Tant qu'on ne joue pas une case vide on rejoue
         }
-        tour = new Turn(position,this);
-        return tour;
-}
-
-    public Turn stupid_play(Turn _history) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Turn t = new Turn(p, this);                                                             //Le tour créé est valide
+        return t;
     }
-
-    @Override
-    public Turn smart_play(Turn tour, List<Position> liste) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Turn stupid_play(Turn _history, List<Position> liste) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }

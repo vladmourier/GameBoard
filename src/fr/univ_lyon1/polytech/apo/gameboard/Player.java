@@ -7,23 +7,14 @@ import java.util.List;
  * @author YOU
  */
 public abstract class Player {
-    public final int number;
-    public int nb_coups;
+    public final int number;        //identifiant du joueur
+    public GameBoard board;         //plateau de jeu
     
 
-    public Player(int number) {
+    public Player(int number, GameBoard board) {
         this.number = number;
-    }
-    
-    public Player(int number, int nbcoups)
-    {
-        this.number=number;
-        this.nb_coups=nbcoups;
+        this.board = board;
     }
     
     public abstract Turn play();
-    public abstract Turn random_play(boolean b);
-    public abstract Turn smart_play(Turn tour, List<Position> liste);
-
-    public abstract Turn stupid_play(Turn _history, List<Position> liste);
 }

@@ -13,8 +13,11 @@ import java.util.List;
  */
 public class Chuck_Norris extends Player {
     
-    public Chuck_Norris(int number) {
-        super(number,0);
+    private int nb_coups;
+            
+    public Chuck_Norris(int number, GameBoard b) {
+        super(number,b);
+        nb_coups = 0;
     }
 
     @Override
@@ -44,25 +47,5 @@ public class Chuck_Norris extends Player {
             return tour;
         }else
         return new Turn (new Position(1,2),this);
-        }
-
-    @Override
-    public Turn random_play(boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    public Turn stupid_play(Turn _history) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Turn smart_play(Turn tour, List<Position> liste) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Turn stupid_play(Turn _history, List<Position> liste) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

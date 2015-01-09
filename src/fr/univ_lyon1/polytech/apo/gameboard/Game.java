@@ -95,7 +95,8 @@ public class Game {
                             }
             break;
 
-
+            default :
+                quit = true;
     }
         Scanner sc = new Scanner(System.in);
         String str;
