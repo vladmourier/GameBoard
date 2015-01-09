@@ -25,7 +25,7 @@ public class Smart extends Stupid {
     {
         if(board.get_history().isEmpty())
         { return new Turn (new Position(1,1), this);}
-        int[] v = new int [100];         //tableau qui stock l'avantage de chaque cas de victoire
+        int[] v = new int [8];         //tableau qui stock l'avantage de chaque cas de victoire
         for(int i = 0; i < 3; i ++)
         {
             for(int j = 0; j < 3; j++)

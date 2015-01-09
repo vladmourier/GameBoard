@@ -113,15 +113,14 @@ public abstract class GameBoard implements Serializable {
                     4 5 6
                     7 8 9
             
-                    La direction 5 est la direction défault et renvoie faux
+                    La direction 5 est la direction défault et renvoie null
             */
     {
         Position pos = new Position(pose.x, pose.y);
-        System.out.println("dir ="+direction+" et last_pos =["+pos.x+", "+pos.y+"]");
-        if(((direction == 1 || direction == 2 || direction == 3) && (pos.x + 1 >= length)) ||       //On vérifie qu'on ne déborde pas en hauteur en haut
-                ((direction == 3 || direction == 6 || direction == 9) && (pos.y + 1 >= width)) ||   //On vérifie qu'on ne déborde pas en largeur à droite
-                ((direction == 7 || direction == 8 || direction == 9) && (pos.x - 1 < 0)) ||        //On vérifie qu'on ne déborde pas en hauteur en bas
-                ((direction == 1 || direction == 4 || direction == 7) && (pos.y - 1 < 0)))          //On vérifie qu'on ne déborde pas en largeur à gauche
+        if(((direction == 1 || direction == 2 || direction == 3) && (pos.y + 1 >= length)) ||       //On vérifie qu'on ne déborde pas en hauteur en haut
+                ((direction == 3 || direction == 6 || direction == 9) && (pos.x + 1 >= width)) ||   //On vérifie qu'on ne déborde pas en largeur à droite
+                ((direction == 7 || direction == 8 || direction == 9) && (pos.y - 1 < 0)) ||        //On vérifie qu'on ne déborde pas en hauteur en bas
+                ((direction == 1 || direction == 4 || direction == 7) && (pos.x - 1 < 0)))          //On vérifie qu'on ne déborde pas en largeur à gauche
         {
             return null;
         }

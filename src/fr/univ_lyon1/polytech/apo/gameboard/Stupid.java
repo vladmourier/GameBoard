@@ -24,10 +24,6 @@ public class Stupid extends Random_player {
             return true;
         }
         Turn last_turn = (board.get_history(board.get_history().size() - 1));
-        if(last_turn == null)                                                   //il n'y a pas de dernière cases jouée, donc pas de cases jouables pour Stupid
-        {
-            return true;
-        }
         for (int i = 1; i < 10; i ++)                                           //On parcourt toutes les cases adjacentes
         {
             Position adjacente = board.next_position(last_turn.position,i);

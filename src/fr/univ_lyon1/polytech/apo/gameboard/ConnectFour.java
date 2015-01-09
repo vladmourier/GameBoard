@@ -102,7 +102,7 @@ public class ConnectFour extends GameBoard {
             
             
                         /* test de victoire*/
-            if(get_board(0,0)!=0)
+            if(win() != null)
             {
                 victory = true;
             }
@@ -144,7 +144,7 @@ public class ConnectFour extends GameBoard {
             
             display_gameboard(this.toString());
             /* test de victoire*/
-            if(get_board(0,0)!=0)
+            if(win() != null)
             {
                 victory = true;
             }
@@ -191,18 +191,18 @@ public class ConnectFour extends GameBoard {
     @Override
     public Player win()
     {
-       Turn last_turn = get_history(get_history().size() - 1);
+       Turn last_turn = lastTurn();
        Position last_pos = last_turn.position;
        Player last_player = last_turn.player;
        
        for(int i = 1; i < 5; i++)       //Parcourt de la moitié des positions, l'autre moitié étant les opposées elles sont parcourues automatiquement
        {
            Position temp_pos = last_pos;        //initialisation de la position temporaire
-           int consecutive = 1;                 //compteur
+           int consecutive = 0;                 //compteur
            
            while(next_position(temp_pos, i) != null)        //on parcourt dans la direction choisie tant qu'on reste sur le plateau
            {
-               if(get_board()[temp_pos.x][temp_pos.y] == last_player.number)//compare la valeur de la case suivante dans la direction choisie avec le dernier joueur
+               if(get_board(temp_pos.x, temp_pos.y) == last_player.number)//compare la valeur de la case suivante dans la direction choisie avec le dernier joueur
                {
                    consecutive++;
                }
@@ -210,13 +210,14 @@ public class ConnectFour extends GameBoard {
                {
                    break;       //Détection d'un joueur différent dans la direction choisie, on ne progresse plus dans cette direction
                }
+               temp_pos = next_position(temp_pos, i);
            }
            
            temp_pos = last_pos;     //On repart de la case d'origine pour un parcourt dans le sens opposé
            
             while(next_position(temp_pos, 10 - i) != null)      //On parcourt l'opposée de la direction précédente tant qu'on reste sur le plateau
            {
-               if(get_board()[temp_pos.x][temp_pos.y] == last_player.number)
+               if(get_board(temp_pos.x, temp_pos.y) == last_player.number)
                {
                    consecutive++;
                }
@@ -224,6 +225,7 @@ public class ConnectFour extends GameBoard {
                {
                    break;
                }
+               temp_pos = next_position(temp_pos, 10-i);
            }
             if(consecutive >= 4)        //4 pions au moins sont alignés, le dernier joueur est vainqueur
             {
