@@ -24,116 +24,113 @@ public class Game {
         int game, player_type_1, player_type_2;
         while(quit==false)
         {
-        game= main_menu();//On choisit son jeu
-        switch (game)
-        {
-            case 2:
-                try{
-                load_game();
-                }catch(IOException e)
-                {
-                    System.out.println("Impossible de charger la partie");
-                }catch(ClassNotFoundException c)
-                {
-                    System.out.println("La classe que vous voulez déserialiser n'existe pas");
-                }
-            case 9:
+            game= main_menu();//On choisit son jeu
+            switch (game)
+            {
+                case 2:
+                    try{
+                    load_game();
+                    }catch(IOException e)
+                    {
+                        System.out.println("Impossible de charger la partie");
+                    }catch(ClassNotFoundException c)
+                    {
+                        System.out.println("La classe que vous voulez déserialiser n'existe pas");
+                    }
+                case 9:
+                    System.out.println("Au revoir");
+                    System.exit(0);
+                    break;
+                case 0:
+                    System.out.println("Bienvenue dans le puissance 4");
+                    gameboard = new ConnectFour();
+
+                    player_type_1 = choose_player_menu(0,0);//On choisit son joueur 1
+
+                        switch (player_type_1)
+                        {
+                            case 0:
+                                player_1 = new Human(1, gameboard);
+                                break;
+                            case 1:
+                                /*random_*/player_1 = new Random_player(1, gameboard);
+                                break;
+                            case 9:
+                                /*chuck_*/player_1 = new Chuck_Norris(1, gameboard);
+                        }
+                        player_type_2 = choose_player_menu(1,0);//On choisit le challenger du p4
+                        switch (player_type_2)
+                        {
+                            case 0:
+                                player_2 = new Human(2, gameboard);
+                                break;
+                            case 1:
+                                /*random_*/player_2 = new Random_player(2, gameboard);
+                                break;
+                            case 9:
+                                /*chuck_*/player_2 = new Chuck_Norris(9, gameboard);
+                                break;
+                        }
+                        break;
+                case 1:
+                    System.out.println("Bienvenue dans le Morpion");
+                    player_type_1 = choose_player_menu(0,1);//On choisit son joueur 1
+                    switch (player_type_1)
+                    {
+                        case 0:
+                            player_1 = new Human(1, gameboard);
+                            break;
+                        case 1:
+                            /*stupid_*/player_1 = new Stupid(1,gameboard);
+                            break;
+                        case 2:
+                            /*smart_*/player_1 = new Smart(1,gameboard);
+                            break;
+                        case 3 :
+                            /*random_*/player_1 = new Random_player(1,gameboard);
+                            break;
+                    }
+                    player_type_2 = choose_player_menu(1,1);//On choisit le challenger du TTT
+                    switch (player_type_2)
+                    {
+                        case 0:
+                            player_2 = new Human(2,gameboard);
+                            break;
+                        case 1:
+                            /*    stupid_*/player_2 = new Stupid(2,gameboard);
+                            break;
+                        case 2:
+                            /* smart_*/player_2 = new Smart(2,gameboard);
+                            break;
+                        case 3 :
+                            /*random_*/player_2 = new Random_player(2,gameboard);
+                            break;
+                    }
+                    break;
+                default :
+                    quit = true;
+            }
+            Scanner sc = new Scanner(System.in);
+            String str;
+
+            System.out.println();            
+            gameboard.display_gameboard(gameboard.toString());
+            System.out.println();
+
+
+            gameboard.play_loop(player_1, player_2);
+            gameboard.display_history();
+            System.out.println("\n Quitter? y/n");
+            str = sc.nextLine();
+            if(str.charAt(0)=='y')
+            {
+                quit = true;
                 System.out.println("Au revoir");
                 System.exit(0);
-                break;
-            case 0:
-                System.out.println("Bienvenue dans le puissance 4");
-                gameboard = new ConnectFour();
-
-                player_type_1 = choose_player_menu(0,0);//On choisit son joueur 1
-
-                            switch (player_type_1)
-                            {
-                                case 0:
-                                    player_1 = new Human(1, gameboard);
-                                    break;
-                                case 1:
-                                    /*random_*/player_1 = new Random_player(1, gameboard);
-                                    break;
-                                case 9:
-                                    /*chuck_*/player_1 = new Chuck_Norris(1, gameboard);
-                                    break;
-                            }
-                            player_type_2 = choose_player_menu(1,0);//On choisit le challenger du p4
-                            switch (player_type_2)
-                            {
-                                case 0:
-                                    player_2 = new Human(2, gameboard);
-                                    break;
-                                case 1:
-                                    /*random_*/player_2 = new Random_player(2, gameboard);
-                                    break;
-                                case 9:
-                                    /*chuck_*/player_2 = new Chuck_Norris(9, gameboard);
-                                    break;
-                            }
-            break;
-            case 1:
-            System.out.println("Bienvenue dans le Morpion");
-            gameboard = new TicTacToe();
-            player_type_1 = choose_player_menu(0,1);//On choisit son joueur 1
-            
-                            switch (player_type_1)
-                            {
-                                case 0:
-                                    player_1 = new Human(1, gameboard);
-                                    break;
-                                case 1:
-                                    /*stupid_*/player_1 = new Stupid(1,gameboard);
-                                    break;
-                                case 2:
-                                    /*smart_*/player_1 = new Smart(1,gameboard);
-                                    break;
-                                case 3 :
-                                    /*random_*/player_1 = new Random_player(1,gameboard);
-                                    break;
-                            }
-            player_type_2 = choose_player_menu(1,1);//On choisit le challenger du TTT
-                            switch (player_type_2)
-                            {
-                                case 0:
-                                    player_2 = new Human(2,gameboard);
-                                    break;
-                                case 1:
-                                   /*    stupid_*/player_2 = new Stupid(2,gameboard);
-                                    break;
-                                case 2:
-                                   /* smart_*/player_2 = new Smart(2,gameboard);
-                                    break;
-                                case 3 :
-                                    /*random_*/player_2 = new Random_player(2,gameboard);
-                                    break;
-                            }
-            break;
-
-            default :
-                quit = true;
-    }
-        Scanner sc = new Scanner(System.in);
-        String str;
-
-        System.out.println();            
-        gameboard.display_gameboard(gameboard.toString());
-        System.out.println();
-        
-
-        gameboard.play_loop(player_1, player_2);
-        gameboard.display_history();
-        System.out.println("\n Quitter? y/n");
-        str = sc.nextLine();
-        if(str.charAt(0)=='y')
-        {
-            quit = true;
-            System.out.println("Au revoir");
-            System.exit(0);
-        }
+            }
         }
     }
+    
         private static int choose_player_menu (int player, int jeu)//player = {0 1} (joueur1<= 0 et joueur2<= 1)
                                                                //jeu = {0,1} (0 -> puiss4 et 1 -> TTT)
     {        
