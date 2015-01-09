@@ -1,5 +1,7 @@
 package fr.univ_lyon1.polytech.apo.gameboard;
 
+import fr.univ_lyon1.polytech.apo.gameboard.save.IncorrectInputException;
+
 /**
  *
  * @author YOU
@@ -17,8 +19,10 @@ public class Position {
         this.y = y;
     }
     
-    public void parse(String seizure)//la chaine doit être de la forme "i,j"
+    public void parse(String seizure) throws IncorrectInputException//la chaine doit être de la forme "i,j"
     {
+        if(seizure.isEmpty())
+            throw new IncorrectInputException();
         String[] clean = seizure.split(",");
         boolean x_ok=false;
         

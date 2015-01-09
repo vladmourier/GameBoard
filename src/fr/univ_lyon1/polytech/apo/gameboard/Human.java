@@ -6,6 +6,7 @@
 
 package fr.univ_lyon1.polytech.apo.gameboard;
 
+import fr.univ_lyon1.polytech.apo.gameboard.save.IncorrectInputException;
 import java.util.Scanner;
 
 /**
@@ -19,18 +20,31 @@ public class Human extends Player {
        super(i, gameboard);
     }
         
+    /**
+     *
+     * @return
+     * @throws IncorrectInputException
+     */
     @Override
     public Turn play()
     {
         Turn tour;
+         Position position = new Position(0,0);
+        boolean valide=false;
+        while (valide==false)
+        {
+        try{
         Scanner sc = new Scanner(System.in);
         System.out.println("Veuillez saisir une position de la forme X,Y :");
         String str = sc.nextLine();
         System.out.println("Vous avez saisi : " + str);
-        Position position;
-        position = new Position(0,0);
         position.parse(str);
-        
+        valide=true;
+        }catch(IncorrectInputException i)
+        {
+            System.out.println("Chaine de caractères non valide, recommencez");
+        }
+        }
         tour = new Turn(position,this);
         return tour;
     }
