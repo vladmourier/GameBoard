@@ -193,8 +193,11 @@ public class Game {
         public static void save_game() throws IOException
     {
         File f1 = new File ("/save/gameboard.txt");
-        ObjectOutputStream oos1 = new ObjectOutputStream(new FileOutputStream(f1));
-        oos1.writeObject(gameboard);
+        if(f1.canWrite())
+        {
+            ObjectOutputStream oos1 = new ObjectOutputStream(new FileOutputStream(f1));
+            oos1.writeObject(gameboard);
+        }
     }
     
     public static void load_game() throws IOException, ClassNotFoundException
@@ -206,5 +209,6 @@ public class Game {
         {
             gameboard.play(_history);
         }
+        f1.delete();
     }
 }
