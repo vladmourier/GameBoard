@@ -23,7 +23,7 @@ public class Smart extends Stupid {
     
     public Turn play()
     {
-        int[] v = null;         //tableau qui stock l'avantage de chaque cas de victoire
+        int[] v = new int [100];         //tableau qui stock l'avantage de chaque cas de victoire
         for(int i = 0; i < 3; i ++)
         {
             for(int j = 0; j < 3; j++)
@@ -196,7 +196,7 @@ public class Smart extends Stupid {
             }
         }
         // on a pas mis de condition de ou pour que le joueur smart préfère gagner plutôt que d'éviter de perdre
-        super.play();       //dans le cas plus que probable où le joueur smart ne soit ni sur le point de gagner ou de perdre, il joue Stupid
-        return null;
+        return super.play();       //dans le cas plus que probable où le joueur smart ne soit ni sur le point de gagner ou de perdre, il joue Stupid
+       // return null;
     }
 }

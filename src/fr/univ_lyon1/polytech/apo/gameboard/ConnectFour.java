@@ -77,17 +77,17 @@ public class ConnectFour extends GameBoard {
                        str=sc.nextLine();
                        if(str.charAt(0)=='y')
                        {
-                           cancel();
+                           tour_ok=false;
                        }
                      }
                     play(tour);// il joue donc comme un humain
                     break;
                 case 1://1 => Le joueur 1 est Random
-                    play(player1.random_play(false));// il fait n'importe quoi
+                    play(player1.play());// il fait n'importe quoi
                     break;
                 case 2://2 => Le joueur 1 est Chuck Norris
                     play(player1.play());
-                    if(player1.nb_coups==3)
+                    if(((Chuck_Norris)player1).get_nb_coups()==3)
                     {
                         victory=true;
                         System.out.print("Bienheureux ceux qui espèrent gagner face à Chuck...");
@@ -129,12 +129,12 @@ public class ConnectFour extends GameBoard {
                             };
                     play(tour);// il joue donc comme un humain
                     break;
-                case 1:
-                    play(player2.random_play(false));
+                case 1://si il est random
+                    play(player2.play());//il joue random
                     break;
                     case 2://2 => Le joueur 2 est Chuck Norris
                     play(player2.play());
-                    if(player2.nb_coups==3)
+                    if(((Chuck_Norris)player1).get_nb_coups()==3)
                     {
                         victory=true;
                         System.out.print("Bienheureux ceux qui espèrent gagner face à Chuck...");
@@ -173,16 +173,20 @@ public class ConnectFour extends GameBoard {
                 || tour.position.x<0);
     }
         public void cancel() {//On met la case visée par le dernier coup à 0
-        set_board(super.get_history().get(super.get_history().size()-1).position.x, super.get_history().get(super.get_history().size()-1).position.y,0);}
+            
+        set_board(super.get_history().get(super.get_history().size()-1).position.x, super.get_history().get(super.get_history().size()-1).position.y,0);
+        }
     
         @Override
-    public Turn lastTurn() {
+    public Turn lastTurn() 
+    {
         try{
-return super.get_history().get(super.get_history().size()-1);    }catch(NullPointerException e)
-{
-    System.out.println("Vous ne pouvez pas accéder au tour précédent, il n'y en a sans doute pas");
-    return null;
-}
+            return super.get_history().get(super.get_history().size()-1);    }
+        catch(NullPointerException e)
+            {
+                System.out.println("Vous ne pouvez pas accéder au tour précédent, il n'y en a sans doute pas");
+                return null;
+            }
     }
     @Override
     public Player win()
@@ -240,18 +244,17 @@ return super.get_history().get(super.get_history().size()-1);    }catch(NullPoin
         {
       for(int i = 0; i<width;i++)
             {
-                int perso=0;
-                char players='_';
+                String players="    ";
                 switch(super.get_board(i, j))
                 {
                     case 1:
-                        players = '●';
+                        players = "●";
                         break;
                     case 2:
-                        players = '○';
+                        players = "○";
                         break;
                     case 9:
-                        players = '◌';
+                        players = "◌";
                         break;
                 }
                 sb.append(players).append("|");

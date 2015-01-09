@@ -16,7 +16,7 @@ public class Game {
     {
         boolean quit = false;
         int game, player_type_1, player_type_2;
-                while(quit==false)
+        while(quit==false)
         {
         game= main_menu();//On choisit son jeu
         switch (game)
@@ -34,26 +34,26 @@ public class Game {
                             switch (player_type_1)
                             {
                                 case 0:
-                                    player_1 = new Human(1);
+                                    player_1 = new Human(1, gameboard);
                                     break;
                                 case 1:
-                                    /*random_*/player_1 = new Random_player(1);
+                                    /*random_*/player_1 = new Random_player(1, gameboard);
                                     break;
                                 case 9:
-                                    /*chuck_*/player_1 = new Chuck_Norris(1);
+                                    /*chuck_*/player_1 = new Chuck_Norris(1, gameboard);
                                     break;
                             }
                             player_type_2 = choose_player_menu(1,0);//On choisit le challenger du p4
                             switch (player_type_2)
                             {
                                 case 0:
-                                    player_2 = new Human(2);
+                                    player_2 = new Human(2, gameboard);
                                     break;
                                 case 1:
-                                    /*random_*/player_2 = new Random_player(2);
+                                    /*random_*/player_2 = new Random_player(2, gameboard);
                                     break;
                                 case 9:
-                                    /*chuck_*/player_2 = new Chuck_Norris(9);
+                                    /*chuck_*/player_2 = new Chuck_Norris(9, gameboard);
                                     break;
                             }
             break;
@@ -65,32 +65,32 @@ public class Game {
                             switch (player_type_1)
                             {
                                 case 0:
-                                    player_1 = new Human(1);
+                                    player_1 = new Human(1, gameboard);
                                     break;
                                 case 1:
-                                    /*stupid_*/player_1 = new Stupid(1,0);
+                                    /*stupid_*/player_1 = new Stupid(1,gameboard);
                                     break;
                                 case 2:
-                                    /*smart_*/player_1 = new Smart(1,0);
+                                    /*smart_*/player_1 = new Smart(1,gameboard);
                                     break;
                                 case 3 :
-                                    /*random_*/player_1 = new Random_player(1);
+                                    /*random_*/player_1 = new Random_player(1,gameboard);
                                     break;
                             }
             player_type_2 = choose_player_menu(1,1);//On choisit le challenger du TTT
                             switch (player_type_2)
                             {
                                 case 0:
-                                    player_2 = new Human(2);
+                                    player_2 = new Human(2,gameboard);
                                     break;
                                 case 1:
-                                   /*    stupid_*/player_2 = new Stupid(2,1);
+                                   /*    stupid_*/player_2 = new Stupid(2,gameboard);
                                     break;
                                 case 2:
-                                   /* smart_*/player_2 = new Smart(2,1);
+                                   /* smart_*/player_2 = new Smart(2,gameboard);
                                     break;
                                 case 3 :
-                                    /*random_*/player_2 = new Random_player(2);
+                                    /*random_*/player_2 = new Random_player(2,gameboard);
                                     break;
                             }
             break;

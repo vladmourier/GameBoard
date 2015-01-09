@@ -6,7 +6,6 @@
 
 package fr.univ_lyon1.polytech.apo.gameboard;
 
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -15,9 +14,9 @@ import java.util.Scanner;
  */
 public class Human extends Player {
     
-    public Human(int i)
+    public Human(int i, GameBoard gameboard)
     {
-       super(i);
+       super(i, gameboard);
     }
         
     @Override
@@ -36,23 +35,5 @@ public class Human extends Player {
         return tour;
     }
     
-    @Override
-    public Turn random_play(boolean b)
-    {
-        return play();
-    }
 
-    public Turn stupid_play(Turn _history) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Turn smart_play(Turn tour, List<Position> liste) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Turn stupid_play(Turn _history, List<Position> liste) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

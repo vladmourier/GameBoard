@@ -15,6 +15,10 @@ public class Chuck_Norris extends Player {
     
     private int nb_coups;
             
+    public int get_nb_coups ()
+    {
+        return nb_coups; 
+    }
     public Chuck_Norris(int number, GameBoard b) {
         super(number,b);
         nb_coups = 0;

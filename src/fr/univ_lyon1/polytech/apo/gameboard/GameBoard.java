@@ -108,7 +108,7 @@ public abstract class GameBoard implements Serializable {
         return null;
     }
     
-    public Position next_position (Position pos, int direction)
+    public Position next_position (Position pose, int direction)
             /*      1 2 3
                     4 5 6
                     7 8 9
@@ -116,6 +116,7 @@ public abstract class GameBoard implements Serializable {
                     La direction 5 est la direction défault et renvoie faux
             */
     {
+        Position pos = new Position(pose.x, pose.y);
         if(((direction == 1 || direction == 2 || direction == 3) && (pos.x + 1 >= length)) ||       //On vérifie qu'on ne déborde pas en hauteur en haut
                 ((direction == 3 || direction == 6 || direction == 9) && (pos.y + 1 >= width)) ||   //On vérifie qu'on ne déborde pas en largeur à droite
                 ((direction == 7 || direction == 8 || direction == 9) && (pos.x - 1 < 0)) ||        //On vérifie qu'on ne déborde pas en hauteur en bas

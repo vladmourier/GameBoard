@@ -63,20 +63,20 @@ public class TicTacToe extends GameBoard {
                     play(tour);// il joue donc comme un humain
                     break;
                 case 1://1 => Le joueur 1 est Random
-                    play(player1.random_play(true));// il fait n'importe quoi
+                    play(player1.play());// il fait n'importe quoi
                     break;
                 case 2://2 -> Le joueur est stupide
                     List<Position> liste = new ArrayList<>();
                     liste=next_win();
                     if(!super.get_history().isEmpty())
-                    { tour=player1.stupid_play(super.get_history(super.get_history().size()-1), liste);
+                    { tour=player1.play();
                     while(tour_ok==false)
                     {
-                    tour = player1.stupid_play(super.get_history(super.get_history().size()-1), liste);
+                    tour = player1.play();
                     tour_ok = check_tour(tour);
                     }
                     play(tour);
-                    } else play(player1.random_play(true));
+                    } else play(player1.play());
                     break;
                 case 3://Le joueur est Smart
                     List<Position> liste2 = new ArrayList<>();
@@ -84,9 +84,9 @@ public class TicTacToe extends GameBoard {
                     while(tour_ok==false){
                         if(super.get_history().isEmpty())
                         {
-                            tour = player1.smart_play(null, liste2);
+                            tour = player1.play();
                         }else{
-                        tour = player1.smart_play(super.get_history(super.get_history().size()-1), liste2) ;
+                        tour = player1.play();
                                 }
                         tour_ok = check_tour(tour);
                             };
@@ -130,13 +130,13 @@ public class TicTacToe extends GameBoard {
                     play(tour);
                     break;
                 case 1:
-                    play(player2.random_play(true));
+                    play(player2.play());
                     break;
                 case 2:
                     List<Position> liste = new ArrayList<>();
                     liste=next_win();
                     while(tour_ok==false){
-                        tour = player2.stupid_play(super.get_history(super.get_history().size()-1), liste);
+                        tour = player2.play();
                         tour_ok = check_tour(tour);
                             };
                     play(tour);
@@ -145,12 +145,7 @@ public class TicTacToe extends GameBoard {
                     List<Position> liste2 = new ArrayList<>();
                     liste2=next_win();
                     while(tour_ok==false){
-                        if(super.get_history().isEmpty())
-                        {
-                            tour = player2.stupid_play(null, liste2);
-                        }else{
-                        tour = player2.stupid_play(super.get_history(super.get_history().size()-1), liste2) ;
-                                }
+                        tour = player2.play();
                         tour_ok = check_tour(tour);
                             };
                     play(tour);
@@ -250,30 +245,43 @@ public class TicTacToe extends GameBoard {
             }
         }
         if(nb_cases_nulles==0)
-            return new Human(99);
+            return new Human(99, this);
         return null;
     }
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        StringBuilder sb = new StringBuilder();
+        for(int j=super.length-1;j>=0;j--) 
+        {
+            for(int i = 0; i<width;i++)
+            {
+                String players="    ";
+                switch(super.get_board(i, j))
+                {
+                    case 1:
+                        players = "✕";
+                        break;
+                    case 2:
+                        players = "○";
+                        break;
+                }
+                sb.append(players).append("|");
+                if(i==2)
+                {
+                    sb.append("\n");
+                }
+            }
+        
+        }   
+        return sb.toString();
     }
     
     public void display_gameboard() 
     {
        
-        for(int j=super.length-1;j>=0;j--) 
-        {
-            for(int i = 0; i<width;i++)
-            {
-                System.out.print(super.get_board(i, j) + "|");
-                if(i==2)
-                {
-                    System.out.print("\n");
-                }
-            }
-        
-        }   
+        System.out.println(toString());
     }
     public boolean check_tour (Turn tour){
         int X= tour.position.x;
