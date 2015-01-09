@@ -35,8 +35,9 @@ public class ConnectFour extends GameBoard {
         {
             altimetre--;
             }
+        Turn t = new Turn (new Position(turn.position.x, altimetre),turn.player);
         super.set_board(X,altimetre, turn.player.number);
-        super.to_history(turn);       
+        super.to_history(t);       
         
     }
     @Override
@@ -278,9 +279,9 @@ public class ConnectFour extends GameBoard {
     }
     
     void display_gameboard(String s, Turn t)
-    {
+    {       
         play(t);
-        super.display_gameboard(s);
-        cancel();
+        super.display_gameboard(this.toString());
+        super.cancel();
     }
 }
