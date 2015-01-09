@@ -67,8 +67,8 @@ public class ConnectFour extends GameBoard {
                     {
                         while(ok==false)
                         {
-                        try
-                        {
+                            try
+                            {
                                 System.out.println("Voulez vous annuler le tour précédent? y/n \n Sauvegarder? s");
                                 str = sc.nextLine();
                                 if (!(str.startsWith("s") || str.startsWith("y") ||
@@ -153,10 +153,53 @@ public class ConnectFour extends GameBoard {
             switch (player_type2) //idem
             { 
                 case 0:// 0 => le joueur 2 est humain
-                    while(tour_ok==false){
+                    if(premier_tour!=0)
+                    {
+                        while(ok==false)
+                        {
+                            try
+                            {
+                                System.out.println("Voulez vous annuler le tour précédent? y/n \n Sauvegarder? s");
+                                str = sc.nextLine();
+                                if (!(str.startsWith("s") || str.startsWith("y") ||
+                                        str.startsWith("n")))
+                                {
+                                    throw new IncorrectInputException();
+                                }
+                                ok=true;
+                            }
+                            catch(IncorrectInputException e)
+                            {
+                                
+                                System.out.println("Entree non valide : "+str.charAt(0));
+                            }
+                        }
+                        if(str.charAt(0)=='y')
+                        {
+                            cancel();
+                            cancel();
+                        }else if(str.charAt(0)=='s'){
+                           try{ Game.save_game();                        
+                                }catch(IOException e)
+                                    {
+                                        System.out.println("Impossible de sauvegarder");
+                                    }
+                        }
+                    }
+                    
+                    premier_tour++;
+                    while(tour_ok==false)
+                    {
                         tour = player2.play();
                         tour_ok = check_tour(tour);
-                            };
+                       System.out.println("Valider le coup? y/n");
+                       display_gameboard(this.toString(), tour);
+                       str=sc.nextLine();
+                       if(str.charAt(0)!='y')
+                       {
+                           tour_ok=true;
+                       }
+                     }
                     play(tour);// il joue donc comme un humain
                     break;
                 case 1://si il est random
