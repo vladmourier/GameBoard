@@ -265,7 +265,7 @@ public class TicTacToe extends GameBoard {
             for(int i = 0; i<width;i++)
             {
                 String players="  ";
-                switch(super.get_board(i, j))
+                switch(get_board(i, j))
                 {
                     case 1:
                         players = "✕";

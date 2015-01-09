@@ -75,6 +75,7 @@ public class Game {
                         break;
                 case 1:
                     System.out.println("Bienvenue dans le Morpion");
+                    gameboard = new TicTacToe();
                     player_type_1 = choose_player_menu(0,1);//On choisit son joueur 1
                     switch (player_type_1)
                     {
