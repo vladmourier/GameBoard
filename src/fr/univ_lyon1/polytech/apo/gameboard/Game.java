@@ -180,14 +180,12 @@ public class Game {
     private static int main_menu()// retourne 0 pour le Puissance 4,
                                   //1 pour le morpion, 9 pour quitter
     {
-    Scanner sc = new Scanner(System.in);
-    System.out.println("Choisissez un jeu : 0 pour Puissance4, 1 pour le Morpion \n 2 pour charger la partie précédente \n Si vous désirez quitter entrez 9");
-    String str = sc.nextLine();
-    System.out.println("Vous avez saisi : " + str);
-    return (int) str.charAt(0)-'0';
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Choisissez un jeu : 0 pour Puissance4, 1 pour le Morpion \n 2 pour charger la partie précédente \n Si vous désirez quitter entrez 9");
+        String str = sc.nextLine();
+        System.out.println("Vous avez saisi : " + str);
+        return (int) str.charAt(0)-'0';
     }
-    
-    
     
     
         public static void save_game() throws IOException
