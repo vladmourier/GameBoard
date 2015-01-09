@@ -207,16 +207,20 @@ public class TicTacToe extends GameBoard {
                         if(get_board()[0][0]==0)
             pos_tab.add(new Position(0,0));
         
-        if(get_board()[0][1]==get_board()[1][1] && get_board()[0][1]!=0)
+        if((get_board()[0][1]==get_board()[1][1] && get_board()[0][1]!=0)||
+                (get_board()[0][2]==get_board()[2][2] && get_board()[2][2]!=0))
                         if(get_board()[2][1]==0)
             pos_tab.add(new Position(2,1));
-        if(get_board()[2][1]==get_board()[1][1] && get_board()[2][1]!=0)
+        if((get_board()[2][1]==get_board()[1][1] && get_board()[2][1]!=0)||
+                (get_board()[0][2]==get_board()[0][0] && get_board()[0][0]!=0))
                         if(get_board()[0][1]==0)
             pos_tab.add(new Position(0,1));
-        if(get_board()[1][0]==get_board()[1][1] && get_board()[1][0]!=0)
+        if((get_board()[1][0]==get_board()[1][1] && get_board()[1][0]!=0)||
+                (get_board()[0][2]==get_board()[2][2] && get_board()[0][2]!=0))
                         if(get_board()[1][2]==0)
             pos_tab.add(new Position(1,2));
-        if(get_board()[1][2]==get_board()[1][1] && get_board()[1][1]!=0)
+        if((get_board()[1][2]==get_board()[1][1] && get_board()[1][1]!=0)||
+                (get_board()[0][0]==get_board()[0][2] && get_board()[0][2]!=0))
                         if(get_board()[1][0]==0)
             pos_tab.add(new Position(1,0));
         

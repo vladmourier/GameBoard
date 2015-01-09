@@ -23,6 +23,8 @@ public class Smart extends Stupid {
     
     public Turn play()
     {
+        if(board.get_history().isEmpty())
+        { return new Turn (new Position(1,1), this);}
         int[] v = new int [100];         //tableau qui stock l'avantage de chaque cas de victoire
         for(int i = 0; i < 3; i ++)
         {
@@ -89,16 +91,35 @@ public class Smart extends Stupid {
             }
         }
         // on a ici pour chaque cas de vistoire le nombre de pions adverses et smart
-        
+            List<Position> pose_gagnante = new ArrayList<>();
+            pose_gagnante=((TicTacToe)board).next_win();
+            if(!pose_gagnante.isEmpty())
+            {
+                Random r = new Random();
+                
+                int x=pose_gagnante.get(r.nextInt(pose_gagnante.size())).x;
+                int y=pose_gagnante.get(r.nextInt(pose_gagnante.size())).y;
+                while(board.get_board(x, y)!=0)
+                {
+                    x=pose_gagnante.get(r.nextInt(pose_gagnante.size())).x;
+                    y=pose_gagnante.get(r.nextInt(pose_gagnante.size())).y;
+                }if(board.get_board(x, y)==0){
+                Position p = new Position(x,y);
+                Turn t=new Turn(p, this);
+                return t;
+                }
+            }        
         for(int i = 0; i < 8; i++)
         {
+
+            
             if (v[i] == 2)             //smart peut gagner ce tour ci !!
             {
                 if(i < 3)
                 {
                     for(int j = 0; j < 3; j ++)
                     {
-                        if(board.get_board(i, j) != 0)
+                        if(board.get_board(i, j) == 0)
                         {
                             Position p = new Position(i, j);
                             Turn t = new Turn(p, this);
@@ -110,7 +131,7 @@ public class Smart extends Stupid {
                 {
                    for(int j = 0; j < 3; j ++)
                     {
-                        if(board.get_board(j, i-3) != 0)
+                        if(board.get_board(j, i-3) == 0)
                         {
                             Position p = new Position(j, i-3);
                             Turn t = new Turn(p, this);
@@ -122,7 +143,7 @@ public class Smart extends Stupid {
                 {
                     for(int j = 0; j < 3; j ++)
                     {
-                        if(board.get_board(j, 2-j) != 0)
+                        if(board.get_board(j, 2-j) == 0)
                         {
                             Position p = new Position(j, 2-j);
                             Turn t = new Turn(p, this);
@@ -134,7 +155,7 @@ public class Smart extends Stupid {
                 {
                     for(int j = 0; j < 3; j ++)
                     {
-                        if(board.get_board(j, j) != 0)
+                        if(board.get_board(j, j) == 0)
                         {
                             Position p = new Position(j, j);
                             Turn t = new Turn(p, this);
@@ -145,11 +166,28 @@ public class Smart extends Stupid {
             }
             else if (v[i] == -2)             //smart peut éviter de perdre ce coup ci !!
             {
+            pose_gagnante=((TicTacToe)board).next_win();
+            if(!pose_gagnante.isEmpty())
+            {
+                Random r = new Random();
+                
+                int x=pose_gagnante.get(r.nextInt(pose_gagnante.size())).x;
+                int y=pose_gagnante.get(r.nextInt(pose_gagnante.size())).y;
+                while(board.get_board(x, y)!=0)
+                {
+                    x=pose_gagnante.get(r.nextInt(pose_gagnante.size())).x;
+                    y=pose_gagnante.get(r.nextInt(pose_gagnante.size())).y;
+                }if(board.get_board(x, y)==0){
+                Position p = new Position(x,y);
+                Turn t=new Turn(p, this);
+                return t;
+            }
+            }
                 if(i < 3)
                 {
                     for(int j = 0; j < 3; j ++)
                     {
-                        if(board.get_board(i, j) != 0)
+                        if(board.get_board(i, j) == 0)
                         {
                             Position p = new Position(i, j);
                             Turn t = new Turn(p, this);
@@ -161,7 +199,7 @@ public class Smart extends Stupid {
                 {
                    for(int j = 0; j < 3; j ++)
                     {
-                        if(board.get_board(j, i-3) != 0)
+                        if(board.get_board(j, i-3) == 0)
                         {
                             Position p = new Position(j, i-3);
                             Turn t = new Turn(p, this);
@@ -173,7 +211,7 @@ public class Smart extends Stupid {
                 {
                     for(int j = 0; j < 3; j ++)
                     {
-                        if(board.get_board(j, 2-j) != 0)
+                        if(board.get_board(j, 2-j) == 0)
                         {
                             Position p = new Position(j, 2-j);
                             Turn t = new Turn(p, this);
@@ -185,7 +223,7 @@ public class Smart extends Stupid {
                 {
                     for(int j = 0; j < 3; j ++)
                     {
-                        if(board.get_board(j, j) != 0)
+                        if(board.get_board(j, j) == 0)
                         {
                             Position p = new Position(j, j);
                             Turn t = new Turn(p, this);
