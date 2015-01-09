@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fr.univ_lyon1.polytech.apo.gameboard.save;
+package fr.univ_lyon1.polytech.apo.gameboard;
 
 /**
  *

@@ -6,7 +6,6 @@
 
 package fr.univ_lyon1.polytech.apo.gameboard;
 
-import fr.univ_lyon1.polytech.apo.gameboard.save.IncorrectInputException;
 import java.util.Scanner;
 
 /**
@@ -23,7 +22,6 @@ public class Human extends Player {
     /**
      *
      * @return
-     * @throws IncorrectInputException
      */
     @Override
     public Turn play()

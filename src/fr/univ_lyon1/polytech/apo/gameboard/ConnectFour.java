@@ -68,8 +68,18 @@ public class ConnectFour extends GameBoard {
                 case 0:// 0 => le joueur 1 est humain
                     if(premier_tour!=0)
                     {
+                        try
+                        {
+                            IncorrectInputException e = new IncorrectInputException();
                         System.out.println("Voulez vous annuler le tour précédent? y/n \n Sauvegarder? s");
                         str = sc.nextLine();
+                        if (str.length()>1 || !str.contains("s") || !str.contains("y") || str.contains("n")||str.length()<=0)
+                            throw e;
+                        }
+                        catch(IncorrectInputException e)
+                        {
+                            System.out.println("Entree non valide");
+                        }
                         if(str.charAt(0)=='y')
                         {
                             cancel();

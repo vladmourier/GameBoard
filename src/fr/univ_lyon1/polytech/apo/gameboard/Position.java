@@ -1,7 +1,5 @@
 package fr.univ_lyon1.polytech.apo.gameboard;
 
-import fr.univ_lyon1.polytech.apo.gameboard.save.IncorrectInputException;
-
 /**
  *
  * @author YOU
