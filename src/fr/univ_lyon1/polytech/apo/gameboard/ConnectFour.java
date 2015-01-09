@@ -167,9 +167,6 @@ public class ConnectFour extends GameBoard {
         }
         System.out.println("Le joueur "+get_board(super.get_history().get(super.get_history().size()-1).position.x,super.get_history().get(super.get_history().size()-1).position.x)+" a gagné");
     }
-
-            
-
     
     public boolean check_tour (Turn tour)
     {
@@ -249,11 +246,12 @@ public class ConnectFour extends GameBoard {
         super.display_gameboard(s);
        }
     @Override
-    public String toString() {
+    public String toString() 
+    {
         StringBuilder sb=new StringBuilder();
-      for(int j=length-1;j>=0;j--) 
+        for(int j=length-1;j>=0;j--) 
         {
-      for(int i = 0; i<width;i++)
+            for(int i = 0; i<width;i++)
             {
                 String players="  ";
                 switch(super.get_board(i, j))
@@ -275,10 +273,10 @@ public class ConnectFour extends GameBoard {
                     sb.append("\n");
                 }
             }
-        
+        }
+        return sb.toString();
     }
-                     return sb.toString();
-}
+    
     void display_gameboard(String s, Turn t)
     {
         play(t);
