@@ -75,7 +75,7 @@ public class ConnectFour extends GameBoard {
                         tour_ok = check_tour(tour);
                        System.out.println("Valider le coup? y/n");
                        str=sc.nextLine();
-                       if(str.charAt(0)=='y')
+                       if(str.charAt(0)!='y')
                        {
                            tour_ok=false;
                        }

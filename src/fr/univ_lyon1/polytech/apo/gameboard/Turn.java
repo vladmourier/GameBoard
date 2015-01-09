@@ -24,5 +24,8 @@ public class Turn implements Serializable {
     {
         System.out.println(toString());
     }
-    
+   public void serialize ()
+   {
+       
+   }
 }
