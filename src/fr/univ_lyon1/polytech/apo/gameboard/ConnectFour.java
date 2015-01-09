@@ -58,7 +58,7 @@ public class ConnectFour extends GameBoard {
             {
                 player_type1=2;
             }
-            
+            boolean ok=false;
             Turn tour = null;
             String str = new String();
             Scanner sc = new Scanner(System.in);
@@ -68,17 +68,24 @@ public class ConnectFour extends GameBoard {
                 case 0:// 0 => le joueur 1 est humain
                     if(premier_tour!=0)
                     {
+                        while(ok==false)
+                        {
                         try
                         {
-                            IncorrectInputException e = new IncorrectInputException();
-                        System.out.println("Voulez vous annuler le tour précédent? y/n \n Sauvegarder? s");
-                        str = sc.nextLine();
-                        if (str.length()>1 || !str.contains("s") || !str.contains("y") || str.contains("n")||str.length()<=0)
-                            throw e;
-                        }
-                        catch(IncorrectInputException e)
-                        {
-                            System.out.println("Entree non valide");
+                                IncorrectInputException e = new IncorrectInputException();
+                                System.out.println("Voulez vous annuler le tour précédent? y/n \n Sauvegarder? s");
+                                str = sc.nextLine();
+                                if (str.length()-1>1 || str.contains("s") || (str.contains("y")) ||
+                                        (str.contains("n"))||str.length()<=0)
+                                {
+                                    throw e;
+                                }
+                                ok=true;
+                            }
+                            catch(IncorrectInputException e)
+                            {
+                                System.out.println("Entree non valide");
+                            }
                         }
                         if(str.charAt(0)=='y')
                         {

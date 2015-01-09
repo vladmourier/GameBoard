@@ -14,7 +14,7 @@ public abstract class GameBoard implements Serializable {
     public final int length;
     private int[][] board;
     private List<Turn> history;
-    private static final long serialVersionUID = -615117221036107522;
+    private static final long serialVersionUID = -615117221036107522L;
 
     public GameBoard(int width, int length) {
         this.width = width;
