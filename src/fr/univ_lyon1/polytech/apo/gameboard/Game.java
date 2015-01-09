@@ -1,5 +1,11 @@
 package fr.univ_lyon1.polytech.apo.gameboard;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Scanner;
 
 /**
@@ -21,6 +27,16 @@ public class Game {
         game= main_menu();//On choisit son jeu
         switch (game)
         {
+            case 2:
+                try{
+                load_game();
+                }catch(IOException e)
+                {
+                    System.out.println("Impossible de charger la partie");
+                }catch(ClassNotFoundException c)
+                {
+                    System.out.println("La classe que vous voulez déserialiser n'existe pas");
+                }
             case 9:
                 System.out.println("Au revoir");
                 System.exit(0);
@@ -168,10 +184,30 @@ public class Game {
                                   //1 pour le morpion, 9 pour quitter
     {
     Scanner sc = new Scanner(System.in);
-    System.out.println("Choisissez un jeu : 0 pour Puissance4, 1 pour le Morpion \n Si vous désirez quitter entrez 9");
+    System.out.println("Choisissez un jeu : 0 pour Puissance4, 1 pour le Morpion \n 1 pour charger la partie précédente \n Si vous désirez quitter entrez 9");
     String str = sc.nextLine();
     System.out.println("Vous avez saisi : " + str);
     return (int) str.charAt(0)-'0';
     }
     
+    
+    
+    
+        public static void save_game() throws IOException
+    {
+        File f1 = new File ("/save/gameboard.txt");
+        ObjectOutputStream oos1 = new ObjectOutputStream(new FileOutputStream(f1));
+        oos1.writeObject(gameboard);
+    }
+    
+    public static void load_game() throws IOException, ClassNotFoundException
+    {
+        File f1 = new File("save/gameboard.txt");
+        ObjectInputStream ios1 = new ObjectInputStream(new FileInputStream(f1));
+        gameboard = (GameBoard) ios1.readObject();
+        for (Turn _history : gameboard.get_history()) 
+        {
+            gameboard.play(_history);
+        }
+    }
 }

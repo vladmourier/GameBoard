@@ -1,6 +1,12 @@
 package fr.univ_lyon1.polytech.apo.gameboard;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,15 +68,27 @@ public abstract class GameBoard implements Serializable {
         }
    }
    
- 
+     public void cancel()
+     {
+            Turn last = lastTurn();
+            history.remove(last);
+            set_board(last.position.x, last.position.y,0);
+     }
+   
     public abstract void play(Turn turn);
     public abstract void play_loop(Player a, Player b);
-    public abstract void cancel();   
-    public abstract Turn lastTurn();
-   /* {
-        return null;
+
+    public Turn lastTurn()
+    {
+                try{
+            return get_history().get(get_history().size()-1);    }
+        catch(NullPointerException e)
+            {
+                System.out.println("Vous ne pouvez pas accéder au tour précédent, il n'y en a sans doute pas");
+                return null;
+            }
     }
-    */
+
     public abstract Player win();
     /*{
         return null;
