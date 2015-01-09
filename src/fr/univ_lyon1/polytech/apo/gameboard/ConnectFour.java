@@ -164,7 +164,7 @@ public class ConnectFour extends GameBoard {
                     break;
                     case 2://2 => Le joueur 2 est Chuck Norris
                     play(player2.play());
-                    if(((Chuck_Norris)player1).get_nb_coups()==3)
+                    if(((Chuck_Norris)player2).get_nb_coups()==3)
                     {
                         victory=true;
                         System.out.print("Bienheureux ceux qui espèrent gagner face à Chuck...");
