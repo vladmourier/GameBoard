@@ -71,8 +71,9 @@ public abstract class GameBoard implements Serializable {
      public void cancel()
      {
             Turn last = lastTurn();
-            history.remove(last);
             set_board(last.position.x, last.position.y,0);
+            history.remove(last);
+
      }
    
     public abstract void play(Turn turn);

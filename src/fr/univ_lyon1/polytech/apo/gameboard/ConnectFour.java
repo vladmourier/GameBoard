@@ -42,6 +42,7 @@ public class ConnectFour extends GameBoard {
     @Override
     public void play_loop(Player player1, Player player2) {
         boolean victory = false, tour_ok;
+        int premier_tour=0;
         int player_type1 = 0, player_type2=0;
         while(victory != true) //Tant que personne n'a gagné
         {
@@ -58,31 +59,36 @@ public class ConnectFour extends GameBoard {
             }
             
             Turn tour = null;
+            String str = new String();
+            Scanner sc = new Scanner(System.in);
+       
             switch (player_type1) 
             { 
                 case 0:// 0 => le joueur 1 est humain
-                    System.out.println("Voulez vous annuler le tour précédent? y/n \n Sauvegarder? s");
-                    Scanner sc = new Scanner(System.in);
-                    String str = sc.nextLine();
-                    if(str.charAt(0)=='y')
+                    if(premier_tour!=0)
                     {
-                        cancel();
-                        cancel();
-                    }else if(str.charAt(0)=='s'){
-                       try{ Game.save_game();                        
-                    }catch(IOException e)
-                    {
-                        System.out.println("Impossible de sauvegarder");
+                        System.out.println("Voulez vous annuler le tour précédent? y/n \n Sauvegarder? s");
+                        str = sc.nextLine();
+                        if(str.charAt(0)=='y')
+                        {
+                            cancel();
+                            cancel();
+                        }else if(str.charAt(0)=='s'){
+                           try{ Game.save_game();                        
+                                }catch(IOException e)
+                                    {
+                                        System.out.println("Impossible de sauvegarder");
+                                    }
+                        }
                     }
-                    }
-
                     
+                    premier_tour++;
                     while(tour_ok==false)
                     {
                         tour = player1.play();
                         tour_ok = check_tour(tour);
                        System.out.println("Valider le coup? y/n");
-                       display_gameboard(this.toString());
+                       display_gameboard(this.toString(), tour);
                        str=sc.nextLine();
                        if(str.charAt(0)!='y')
                        {
@@ -273,4 +279,10 @@ public class ConnectFour extends GameBoard {
     }
                      return sb.toString();
 }
+    void display_gameboard(String s, Turn t)
+    {
+        play(t);
+        super.display_gameboard(s);
+        cancel();
+    }
 }
