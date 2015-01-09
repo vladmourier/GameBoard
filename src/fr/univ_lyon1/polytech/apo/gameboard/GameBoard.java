@@ -71,8 +71,8 @@ public abstract class GameBoard implements Serializable {
      public void cancel()
      {
             Turn last = lastTurn();
-            history.remove(last);
             set_board(last.position.x, last.position.y,0);
+            history.remove(last);
      }
    
     public abstract void play(Turn turn);
@@ -90,9 +90,6 @@ public abstract class GameBoard implements Serializable {
     }
 
     public abstract Player win();
-    /*{
-        return null;
-    }*/
 
     @Override
     public abstract String toString();
@@ -104,8 +101,6 @@ public abstract class GameBoard implements Serializable {
     {
         System.out.println(s);
     }
-    /*
-   */ 
     
     public int get_board(int i, int j)
     {
