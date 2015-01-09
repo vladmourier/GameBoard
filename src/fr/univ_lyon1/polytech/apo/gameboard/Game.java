@@ -1,3 +1,8 @@
+/**
+ * @author p1206512 & p1206617
+ * COMTE Adrien & MOURIER Vladimir
+ */
+
 package fr.univ_lyon1.polytech.apo.gameboard;
 
 import java.io.File;
@@ -8,10 +13,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Scanner;
 
-/**
- *
- * @author YOU
- */
 public class Game {
 
     private static GameBoard gameboard;

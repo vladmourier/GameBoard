@@ -1,3 +1,8 @@
+/**
+ * @author p1206512 & p1206617
+ * COMTE Adrien & MOURIER Vladimir
+ */
+
 package fr.univ_lyon1.polytech.apo.gameboard;
 
 
@@ -5,16 +10,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author YOU
- */
 public abstract class GameBoard implements Serializable {
     public final int width;
     public final int length;
     private int[][] board;
     private List<Turn> history;
-    private static final long serialVersionUID = -615117221036107522;
+    private static final long serialVersionUID = -615117221036107522L;
 
     public GameBoard(int width, int length) {
         this.width = width;
